@@ -1,0 +1,10 @@
+# keep reference images, notes and the guest list off Vercel
+*.jpg
+*.PNG
+wedding-site.html
+NOTES.md
+DEPLOY.md
+guests.csv
+supabase/
+scripts/
+.env*

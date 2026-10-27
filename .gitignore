@@ -1,0 +1,17 @@
+node_modules/
+.vercel/
+
+# secrets: only the template is committed
+.env
+.env.*
+!.env.example
+
+# guest data: only the template is committed
+*.csv
+!supabase/guests.example.csv
+
+# personal reference photos, not part of the site
+*.jpg
+*.jpeg
+*.png
+*.PNG

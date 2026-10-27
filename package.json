@@ -1,0 +1,11 @@
+{
+  "name": "fin-and-ellie",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "import-guests": "node --env-file=.env.local scripts/import-guests.mjs"
+  },
+  "dependencies": {
+    "@vercel/functions": "^3.10.4"
+  }
+}
