@@ -363,6 +363,19 @@ section{padding:88px 0}
    Gifts
 ------------------------------------------------------------ */
 .gift{max-width:600px;margin:0 auto;text-align:center;font-size:21px;line-height:1.65}
+.gift-note{font-size:15px;font-style:italic;color:var(--ink-faint);margin:12px 0 0;line-height:1.5}
+.bank{max-width:380px;margin:26px auto 0;text-align:left;border:var(--line);border-radius:8px;background:var(--cream);padding:0 18px}
+.bank summary{list-style:none;cursor:pointer;padding:14px 0 12px;text-align:center;font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase}
+.bank summary::-webkit-details-marker{display:none}
+.bank summary::after{content:" +";color:var(--ink-faint)}
+.bank[open] summary::after{content:" –"}
+.bank dl{margin:0;border-top:1px dashed var(--ink-faint)}
+.bank dl div{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px dashed var(--sand)}
+.bank dt{font-family:var(--sans);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint)}
+.bank dd{margin:0 0 0 auto;font-size:18px;font-variant-numeric:tabular-nums}
+.bank .cp{font-family:var(--sans);font-size:9px;letter-spacing:.16em;text-transform:uppercase;border:1px solid var(--ink-faint);background:none;color:var(--ink-soft);border-radius:3px;padding:6px 8px 4px;cursor:pointer}
+.bank .cp.done{background:var(--green);border-color:var(--green);color:#fff}
+.bank .gift-note{margin:10px 0 14px;text-align:center}
 
 /* ------------------------------------------------------------
    FAQ
@@ -925,7 +938,15 @@ dialog::backdrop{background:rgba(42,34,28,.55);backdrop-filter:blur(2px)}
     <div class="gift rv">
       <p>Having you with us on the day is all we could ask for. If you'd like to give something, a contribution towards our honeymoon on the slopes would mean the world.</p>
       <svg style="width:52px;height:65px;margin:12px auto 20px;color:var(--ink)"><use href="#skis"/></svg>
-      <a class="btn" href="#" onclick="return false">Contribute</a>
+      <a class="btn solid" href="https://monzo.me/elliecox17?h=4yabhn&amp;account_type=personal" target="_blank" rel="noopener">Contribute</a>
+      <p class="gift-note">Opens Ellie's Monzo page. Pay by card, no Monzo account needed.</p>
+
+      <!-- bank transfer fallback: fill in BANK in the script below and it appears -->
+      <details class="bank hidden" id="bank">
+        <summary>Prefer a bank transfer?</summary>
+        <dl id="bankRows"></dl>
+        <p class="gift-note">Pop your name in the reference so we know who to thank.</p>
+      </details>
     </div>
   </div>
 </section>
@@ -960,7 +981,7 @@ dialog::backdrop{background:rgba(42,34,28,.55);backdrop-filter:blur(2px)}
     <svg><use href="#paw"/></svg><svg><use href="#paw"/></svg><svg><use href="#paw"/></svg>
   </div>
   <div class="fine">Fin &amp; Ellie · 31 May 2027 · The Ashes Barns</div>
-  <p class="credit">Website built by Nathan Cox, brother of the bride. Mates rates available. Fin and Ellie are still paying theirs off.</p>
+  <p class="credit">Website built by Nathan Cox, brother of the bride. Let me know if you want a website making. Discounts to those who buy me drinks at the wedding.</p>
 </footer>
 </div>
 
@@ -1275,6 +1296,18 @@ $(".mono").addEventListener("click",e=>{
   monoTaps++;clearTimeout(monoT);monoT=setTimeout(()=>monoTaps=0,1500);
   if(monoTaps>=5){e.preventDefault();monoTaps=0;location.href=MOCK?"admin.html":"/admin"}
 });
+
+/* ---------- gifts: bank transfer fallback ----------
+   Fill these in and the "Prefer a bank transfer?" box appears. Leave any blank to hide it. */
+const BANK={name:"",sort:"",account:""};
+if(BANK.name&&BANK.sort&&BANK.account){
+  const rows=[["Name",BANK.name],["Sort code",BANK.sort],["Account",BANK.account]];
+  $("#bankRows").innerHTML=rows.map(([k,v])=>`<div><dt>${k}</dt><dd>${esc(v)}</dd><button class="cp" type="button" data-v="${esc(v.replace(/[^0-9A-Za-z ]/g,k==="Name"?"$&":""))}">Copy</button></div>`).join("");
+  $("#bankRows").addEventListener("click",async e=>{const b=e.target.closest(".cp");if(!b)return;
+    try{await navigator.clipboard.writeText(b.dataset.v)}catch(_){}
+    b.textContent="Copied";b.classList.add("done");setTimeout(()=>{b.textContent="Copy";b.classList.remove("done")},1600)});
+  $("#bank").classList.remove("hidden");
+}
 
 /* ---------- page bits ---------- */
 function init(){
