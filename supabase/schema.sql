@@ -5,7 +5,7 @@
 --
 -- Security model
 -- - Guests never talk to Supabase directly. The Vercel API functions
---   call the two RPCs below with the secret key (service_role).
+--   call the RPCs below with the secret key (service_role).
 -- - RLS is on with no policies, and anon/authenticated have no grants,
 --   so the publishable/anon key can read or write nothing.
 -- ============================================================
@@ -145,6 +145,36 @@ revoke execute on function public.find_household(text)              from public,
 revoke execute on function public.save_rsvp(bigint, jsonb, text)    from public, anon, authenticated;
 grant  execute on function public.find_household(text)              to service_role;
 grant  execute on function public.save_rsvp(bigint, jsonb, text)    to service_role;
+
+-- ---------- admin_rsvps ----------
+-- - Every guest, with their household, note to the couple and answers (null if no reply).
+-- - Only the admin dashboard calls this, via /api/admin, behind the admin password.
+create or replace function public.admin_rsvps()
+returns jsonb
+language sql stable security definer
+set search_path = public
+as $$
+  select coalesce(jsonb_agg(jsonb_build_object(
+      'household',    h.name,
+      'household_id', h.id,
+      'message',      h.message,
+      'name',         g.full_name,
+      'type',         g.invite_type,
+      'child',        g.is_child,
+      'replied',      r.guest_id is not null,
+      'attending',    r.attending,
+      'diet',         r.diet,
+      'diet_notes',   r.diet_notes,
+      'song_title',   r.song_title,
+      'song_artist',  r.song_artist,
+      'updated_at',   r.updated_at
+    ) order by h.name, g.id), '[]'::jsonb)
+  from guests g
+  join households h on h.id = g.household_id
+  left join rsvps r on r.guest_id = g.id;
+$$;
+revoke execute on function public.admin_rsvps() from public, anon, authenticated;
+grant  execute on function public.admin_rsvps() to service_role;
 
 -- ============================================================
 -- Views for Fin & Ellie (read them in Table Editor or export CSV)

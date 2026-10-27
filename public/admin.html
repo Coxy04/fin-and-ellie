@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#f3eee4">
+<title>RSVPs · Fin &amp; Ellie</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f3eee4;--paper-deep:#eae2d2;--ink:#2a221c;--ink-soft:#5c4c3f;--ink-faint:#9b8878;
+  --brown:#4a3324;--taupe:#a68d78;--sand:#dccbb3;--cream:#fbf8f1;--green:#3f7d4a;--red:#b5362f;
+  --script:"Allura",cursive;--sans:"Josefin Sans",system-ui,sans-serif;--serif:"Cormorant Garamond",Georgia,serif;
+  --line:1.5px solid var(--ink);color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 18px/1.5 var(--serif);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+.eyebrow,.label{font-family:var(--sans);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-faint)}
+.script{font-family:var(--script);line-height:1;font-weight:400}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  padding:12px 18px 10px;border:var(--line);border-radius:3px;background:transparent;color:var(--ink);cursor:pointer;text-decoration:none;transition:background .15s,color .15s}
+.btn:hover{background:var(--paper-deep)}
+.btn.solid{background:var(--ink);color:var(--paper)}.btn.solid:hover{background:var(--brown)}
+.btn.small{padding:9px 12px 7px;font-size:10px;letter-spacing:.16em}
+.btn.done{background:var(--green);border-color:var(--green);color:#fff}
+
+header{border-bottom:1px solid var(--sand);background:rgba(243,238,228,.92);position:sticky;top:0;z-index:5;backdrop-filter:blur(6px)}
+header .wrap{height:56px;display:flex;align-items:center;gap:16px}
+header .mono{font-family:var(--script);font-size:30px;text-decoration:none}
+header .eyebrow{margin-left:auto}
+
+/* sign in */
+.gate{max-width:420px;margin:12vh auto;background:var(--cream);border:var(--line);border-radius:12px;padding:36px 30px 30px;text-align:center;box-shadow:6px 6px 0 var(--sand)}
+.gate .script{font-size:56px;color:var(--brown);margin:6px 0 16px}
+.gate input{width:100%;font:400 19px var(--serif);border:0;border-bottom:var(--line);background:transparent;padding:10px 2px;outline:none;text-align:center;margin-bottom:18px}
+.gate .err{font-family:var(--sans);font-size:12px;color:var(--red);min-height:18px;margin-top:10px;letter-spacing:.06em}
+
+/* dashboard */
+.top{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:36px 0 22px}
+.top h1{font-family:var(--script);font-weight:400;font-size:64px;line-height:1;color:var(--brown);margin:4px 0 0}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:860px){.stats{grid-template-columns:1fr 1fr}}
+.stat{background:var(--cream);border:var(--line);border-radius:8px;padding:18px 18px 16px;box-shadow:4px 4px 0 var(--sand);position:relative;overflow:hidden}
+.stat b{display:block;font-family:var(--sans);font-weight:300;font-size:44px;line-height:1.05;margin:8px 0 2px}
+.stat small{font-size:15px;color:var(--ink-soft)}
+.meter{height:8px;border-radius:5px;background:var(--paper-deep);margin-top:12px;overflow:hidden;display:flex}
+.meter i{display:block;height:100%;background:var(--ink);transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.meter i.no{background:var(--taupe)}
+.ring{position:absolute;right:14px;top:14px;width:56px;height:56px}
+
+.panels{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;margin-top:16px}
+@media(max-width:860px){.panels{grid-template-columns:1fr}}
+.panel{background:var(--cream);border:var(--line);border-radius:8px;padding:20px 20px 18px}
+.panel h2{font-family:var(--sans);font-size:12px;letter-spacing:.26em;text-transform:uppercase;font-weight:600;margin:0 0 14px}
+.bars{display:grid;gap:9px}
+.bar{display:grid;grid-template-columns:150px 1fr 34px;gap:10px;align-items:center;font-size:16px}
+.bar .track{height:10px;background:var(--paper-deep);border-radius:6px;overflow:hidden}
+.bar .track i{display:block;height:100%;background:var(--brown);border-radius:6px}
+.bar span:last-child{font-family:var(--sans);font-size:12px;text-align:right;color:var(--ink-soft)}
+.empty{color:var(--ink-faint);font-style:italic}
+
+.chase{margin-top:16px}
+.chase-list{margin-top:12px;display:none}
+.chase-list.open{display:block}
+.who{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px dashed var(--ink-faint)}
+.who:first-child{border-top:0}
+.who b{font-weight:500;font-size:19px}
+.who small{display:block;font-family:var(--sans);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint)}
+.preview{font-size:15px;color:var(--ink-soft);font-style:italic;background:var(--paper);border-radius:6px;padding:10px 12px;margin:4px 0 14px}
+
+.tablewrap{margin:16px 0 60px;background:var(--cream);border:var(--line);border-radius:8px;overflow:auto}
+table{width:100%;border-collapse:collapse;font-size:16px;min-width:760px}
+th{font-family:var(--sans);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);font-weight:400;text-align:left;padding:14px 14px 10px;border-bottom:var(--line);position:sticky;top:0;background:var(--cream)}
+td{padding:11px 14px;border-bottom:1px dashed var(--sand);vertical-align:top}
+tr:last-child td{border-bottom:0}
+.pill{display:inline-block;font-family:var(--sans);font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding:5px 8px 3px;border-radius:20px;border:1px solid currentColor;white-space:nowrap}
+.pill.yes{color:var(--green)}.pill.no{color:var(--taupe)}.pill.wait{color:var(--red)}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.filters button.on{background:var(--ink);color:var(--paper)}
+.msgs .m{padding:10px 0;border-top:1px dashed var(--ink-faint)}.msgs .m:first-child{border-top:0}
+.msgs .m b{font-weight:500}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;background:var(--ink);color:var(--paper);font-family:var(--sans);font-size:12px;letter-spacing:.12em;padding:12px 18px 10px;border-radius:4px;transition:.25s;pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.small{font-size:15px;color:var(--ink-soft)}
+.hidden{display:none !important}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="mono" href="/">F &amp; E</a><span class="eyebrow">RSVP dashboard</span></div></header>
+
+<!-- admin password (the site password is already checked by middleware) -->
+<form class="gate hidden" id="gate" method="post" action="/api/admin-login">
+  <div class="eyebrow">Staff only</div>
+  <div class="script">Back office</div>
+  <input type="password" name="password" placeholder="admin password" autocomplete="current-password" required autofocus>
+  <button class="btn solid" style="width:100%">Open dashboard</button>
+  <div class="err" id="gateErr"></div>
+</form>
+
+<main class="wrap hidden" id="dash">
+  <div class="top">
+    <div><div class="eyebrow" id="asof">Live from the guest list</div><h1>RSVPs</h1></div>
+    <div class="filters">
+      <button class="btn" id="chaseBtn">Who hasn't replied</button>
+      <button class="btn" onclick="load()">Refresh</button>
+    </div>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="panel chase hidden" id="chase">
+    <h2>Still to reply</h2>
+    <div class="preview" id="preview"></div>
+    <div id="chaseList"></div>
+  </div>
+
+  <div class="panels">
+    <div class="panel"><h2>Dietary requirements</h2><div class="bars" id="diets"></div></div>
+    <div class="panel"><h2>Songs for the DJ</h2><div class="bars" id="songs"></div></div>
+  </div>
+  <div class="panel msgs" style="margin-top:16px"><h2>Notes to the couple</h2><div id="msgs"></div></div>
+
+  <div class="top" style="margin:30px 0 0">
+    <h2 class="eyebrow" style="margin:0">Every guest</h2>
+    <div class="filters" id="filters">
+      <button class="btn small on" data-f="all">All</button>
+      <button class="btn small" data-f="yes">Attending</button>
+      <button class="btn small" data-f="no">Declined</button>
+      <button class="btn small" data-f="wait">No reply</button>
+    </div>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Guest</th><th>Household</th><th>Pass</th><th>Status</th><th>Dietary</th><th>Notes</th><th>Song</th><th>Updated</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table></div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const MOCK=location.protocol==="file:"||new URLSearchParams(location.search).has("mock");
+let data=null,filter="all";
+
+/* opened from disk: sample data so the layout can be worked on */
+const SAMPLE={site:"www.ellandfin.co.uk",sitePassword:"powder",guests:[
+  {household:"Amanda Bowen",name:"Amanda Bowen",type:"day",replied:true,attending:true,diet:"Vegetarian",diet_notes:null,song_title:"September",song_artist:"Earth, Wind & Fire",updated_at:"2026-10-20T10:00:00Z",message:"Can't wait!"},
+  {household:"Ellie Cox",name:"Ellie Cox",type:"day",replied:false},
+  {household:"Fin Bowen",name:"Fin Bowen",type:"day",replied:true,attending:true,diet:"No requirements",song_title:"Mr Brightside",song_artist:"The Killers",updated_at:"2026-10-22T18:30:00Z"},
+  {household:"Jake Cox",name:"Jake Cox",type:"day",replied:true,attending:false,updated_at:"2026-10-25T09:12:00Z"},
+  {household:"Mads Banfield",name:"Mads Banfield",type:"day",replied:false},
+  {household:"Nathan Cox",name:"Nathan Cox",type:"day",replied:true,attending:true,diet:"Gluten-free",diet_notes:"Coeliac, not just a preference",song_title:"Mr Brightside",song_artist:"The Killers",updated_at:"2026-10-26T21:40:00Z"}
+]};
+
+async function load(){
+  if(MOCK){data=SAMPLE;return render()}
+  const res=await fetch("/api/admin",{cache:"no-store"});
+  if(res.status===401){
+    const body=await res.json().catch(()=>({}));
+    if(body.need==="admin"){showGate();return}
+    location.href="/login";return;
+  }
+  const body=await res.json().catch(()=>null);
+  if(!res.ok){showGate(body?.error||"Something went wrong.");return}
+  data=body;render();
+}
+function showGate(msg){
+  $("#gate").classList.remove("hidden");$("#dash").classList.add("hidden");
+  const q=new URLSearchParams(location.search);
+  $("#gateErr").textContent=msg||(q.has("wrong")?"That's not it.":q.has("off")?"Set ADMIN_PASSWORD in Vercel to switch the dashboard on.":"");
+}
+
+const first=n=>String(n).trim().split(/\s+/)[0];
+const status=g=>!g.replied?"wait":g.attending?"yes":"no";
+const pct=(a,b)=>b?Math.round(a/b*100):0;
+const hasDiet=g=>(g.diet&&g.diet!=="No requirements")||!!(g.diet_notes&&g.diet_notes.trim());
+function reminder(name){
+  return `Hey ${first(name)}, we haven't received your RSVP to our wedding yet. Would you mind going to ${data.site} with password ${data.sitePassword} and letting us know if you can make it please?`;
+}
+
+function ring(p){
+  const c=2*Math.PI*24;
+  return `<svg class="ring" viewBox="0 0 56 56"><circle cx="28" cy="28" r="24" fill="none" stroke="#eae2d2" stroke-width="6"/>
+    <circle cx="28" cy="28" r="24" fill="none" stroke="#2a221c" stroke-width="6" stroke-linecap="round" stroke-dasharray="${c*p/100} ${c}" transform="rotate(-90 28 28)"/></svg>`;
+}
+
+function render(){
+  $("#gate").classList.add("hidden");$("#dash").classList.remove("hidden");
+  const G=data.guests,N=G.length;
+  const replied=G.filter(g=>g.replied),yes=G.filter(g=>status(g)==="yes"),no=G.filter(g=>status(g)==="no"),wait=G.filter(g=>!g.replied);
+  const dietYes=yes.filter(hasDiet);
+  $("#asof").textContent="Updated "+new Date().toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});
+
+  $("#stats").innerHTML=`
+    <div class="stat">${ring(pct(replied.length,N))}<div class="label">Replied</div><b>${pct(replied.length,N)}%</b><small>${replied.length} of ${N} guests</small>
+      <div class="meter"><i style="width:${pct(yes.length,N)}%"></i><i class="no" style="width:${pct(no.length,N)}%"></i></div></div>
+    <div class="stat"><div class="label">Attending</div><b>${yes.length}</b><small>${yes.filter(g=>g.type==="day").length} day · ${yes.filter(g=>g.type==="evening").length} evening</small></div>
+    <div class="stat"><div class="label">Declined · no reply</div><b>${no.length} · ${wait.length}</b><small>${wait.length?"chase them below":"everyone has replied"}</small></div>
+    <div class="stat">${ring(pct(dietYes.length,yes.length))}<div class="label">Dietary needs</div><b>${pct(dietYes.length,yes.length)}%</b><small>${dietYes.length} of ${yes.length} attending</small></div>`;
+
+  /* diets */
+  const dc={};yes.forEach(g=>{const k=g.diet||"No requirements";dc[k]=(dc[k]||0)+1});
+  const dk=Object.entries(dc).sort((a,b)=>b[1]-a[1]);
+  $("#diets").innerHTML=dk.length?dk.map(([k,v])=>`<div class="bar"><span>${esc(k)}</span><span class="track"><i style="width:${pct(v,yes.length)}%"></i></span><span>${v}</span></div>`).join("")
+    +(dietYes.some(g=>g.diet_notes)?`<div style="margin-top:10px">${dietYes.filter(g=>g.diet_notes).map(g=>`<div class="small"><b>${esc(g.name)}</b>: ${esc(g.diet_notes)}</div>`).join("")}</div>`:"")
+    :`<div class="empty">No one attending yet.</div>`;
+
+  /* songs, merged by title + artist */
+  const sc={};yes.filter(g=>g.song_title).forEach(g=>{const k=(g.song_title.trim()+" · "+(g.song_artist||"").trim()).replace(/ · $/,"");const key=k.toLowerCase();(sc[key]=sc[key]||{k,n:0}).n++});
+  const sk=Object.values(sc).sort((a,b)=>b.n-a.n),max=sk[0]?.n||1;
+  $("#songs").innerHTML=sk.length?sk.map(s=>`<div class="bar"><span>${esc(s.k)}</span><span class="track"><i style="width:${pct(s.n,max)}%"></i></span><span>${s.n}</span></div>`).join(""):`<div class="empty">No requests yet.</div>`;
+
+  /* notes (one per household) */
+  const seen=new Set(),msgs=G.filter(g=>g.message&&!seen.has(g.household)&&seen.add(g.household));
+  $("#msgs").innerHTML=msgs.length?msgs.map(g=>`<div class="m"><b>${esc(g.household)}</b> · ${esc(g.message)}</div>`).join(""):`<div class="empty">No notes yet.</div>`;
+
+  /* chase list */
+  $("#chaseBtn").textContent=`Who hasn't replied (${wait.length})`;
+  $("#preview").textContent=wait.length?reminder("<name>").replace("<name>","[name]"):"";
+  $("#chaseList").innerHTML=wait.length?wait.map((g,i)=>`<div class="who"><div><b>${esc(g.name)}</b><small>${esc(g.household)} · ${g.type==="evening"?"evening":"all day"}</small></div>
+      <button class="btn small" data-i="${i}">Copy message</button></div>`).join(""):`<div class="empty">Everyone has replied.</div>`;
+  $("#chaseList").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>copy(reminder(wait[+b.dataset.i].name),b)));
+
+  renderRows();
+}
+function renderRows(){
+  const G=data.guests.filter(g=>filter==="all"||status(g)===filter);
+  const label={yes:"Attending",no:"Declined",wait:"No reply"};
+  $("#rows").innerHTML=G.map(g=>{const s=status(g);return `<tr>
+    <td>${esc(g.name)}</td><td>${esc(g.household)}</td><td>${g.type==="evening"?"Evening":"All day"}</td>
+    <td><span class="pill ${s}">${label[s]}</span></td>
+    <td>${s==="yes"?esc(g.diet||"No requirements"):""}</td><td>${esc(g.diet_notes)}</td>
+    <td>${g.song_title?`${esc(g.song_title)}${g.song_artist?` <span style="color:var(--ink-faint)">· ${esc(g.song_artist)}</span>`:""}`:""}</td>
+    <td style="white-space:nowrap;color:var(--ink-faint)">${g.updated_at?new Date(g.updated_at).toLocaleDateString("en-GB",{day:"numeric",month:"short"}):""}</td></tr>`}).join("")
+    ||`<tr><td colspan="8" class="empty">Nobody here.</td></tr>`;
+}
+
+async function copy(text,btn){
+  try{await navigator.clipboard.writeText(text)}
+  catch(e){const t=document.createElement("textarea");t.value=text;document.body.appendChild(t);t.select();document.execCommand("copy");t.remove()}
+  if(btn){const old=btn.textContent;btn.textContent="Copied";btn.classList.add("done");setTimeout(()=>{btn.textContent=old;btn.classList.remove("done")},1800)}
+  toast("Message copied. Paste it into WhatsApp or a text.");
+}
+function toast(t){const el=$("#toast");el.textContent=t;el.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove("show"),2200)}
+
+$("#chaseBtn").addEventListener("click",()=>{const c=$("#chase");c.classList.toggle("hidden");if(!c.classList.contains("hidden"))c.scrollIntoView({behavior:"smooth",block:"nearest"})});
+$("#filters").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;filter=b.dataset.f;$("#filters").querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));renderRows()});
+load();
+</script>
+</body>
+</html>

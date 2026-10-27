@@ -27,6 +27,10 @@ About 20 minutes end to end. You need free accounts on Supabase, GitHub and Verc
 
 ## 3. Load the guest list
 
+Quickest: paste `guests.seed.local.sql` into Supabase › SQL Editor and run it. It's kept out of git.
+
+Or import a CSV:
+
 1. Copy `supabase/guests.example.csv` to `guests.csv` in this folder. It is git-ignored.
 2. Fill it in from the wedding spreadsheet. One row per person.
    - **household**: groups people who RSVP together, e.g. "The Smith family". Use the exact same text for everyone in it.
@@ -61,7 +65,7 @@ About 20 minutes end to end. You need free accounts on Supabase, GitHub and Verc
    - If it isn't listed, connect GitHub and give Vercel access to that one repository.
 2. **Framework Preset:** Other. Leave the build and output settings alone, `vercel.json` sets them.
 3. Open **Environment Variables** and add all five from `.env.local`.
-   - `SUPABASE_URL`, `SUPABASE_SECRET_KEY`, `SITE_PASSWORD`, `SESSION_SECRET`, `CRON_SECRET`.
+   - `SUPABASE_URL`, `SUPABASE_SECRET_KEY`, `SITE_PASSWORD`, `SESSION_SECRET`, `CRON_SECRET`, `ADMIN_PASSWORD`.
    - Apply them to **Production** and **Preview**.
 4. Click **Deploy**. You get a URL like `fin-and-ellie.vercel.app`.
 5. From now on:
@@ -84,6 +88,18 @@ About 20 minutes end to end. You need free accounts on Supabase, GitHub and Verc
 3. Print that domain and the password on the invites.
 
 ## Reading the RSVPs
+
+### The dashboard
+
+1. On the site, tap the **F & E** logo five times quickly. It opens `/admin`.
+2. Enter `ADMIN_PASSWORD`. It stays signed in for 30 days on that device.
+3. You get:
+   - replied %, attending, declined, no reply, and dietary needs %;
+   - **Who hasn't replied**, with a **Copy message** button per person for WhatsApp or text;
+   - diets, song requests, notes, and a filterable table of every guest.
+4. Needs `ADMIN_PASSWORD` in Vercel and the latest `supabase/schema.sql` run in Supabase.
+
+### In Supabase
 
 Fin and Ellie can be invited to the Supabase project as members, or you can export for them. In **Table Editor** these views are ready-made, and each one exports to CSV:
 
