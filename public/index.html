@@ -31,10 +31,11 @@
   --sans:"Josefin Sans",system-ui,sans-serif;
   --serif:"Cormorant Garamond",Georgia,serif;
   --line:1.5px solid var(--ink);
+  --nav:56px;
   color-scheme:light;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:64px}
+html{scroll-behavior:smooth;scroll-padding-top:var(--nav)}
 body{
   margin:0;background:var(--paper);color:var(--ink);
   font:400 19px/1.55 var(--serif);
@@ -51,6 +52,7 @@ a:hover{border-color:var(--ink)}
 p{margin:0 0 1em}
 h1,h2,h3{font-weight:400;margin:0}
 svg{display:block}
+img{max-width:100%}
 .hidden{display:none !important}
 
 /* type helpers */
@@ -92,7 +94,7 @@ nav{
   position:sticky;top:0;z-index:20;background:rgba(243,238,228,.92);backdrop-filter:blur(6px);
   border-bottom:1px solid var(--sand);
 }
-.navin{max-width:1100px;margin:0 auto;padding:0 20px;height:56px;display:flex;align-items:center;gap:20px}
+.navin{max-width:1100px;margin:0 auto;padding:0 20px;height:var(--nav);display:flex;align-items:center;gap:20px}
 .mono{font-family:var(--script);font-size:30px;line-height:1;border:0;padding-top:4px;white-space:nowrap}
 .links{display:flex;gap:26px;margin-left:auto;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
 .links::-webkit-scrollbar{display:none}
@@ -111,98 +113,206 @@ section{padding:88px 0}
 .shead{text-align:center;margin-bottom:48px}
 .shead .script{font-size:clamp(52px,8vw,76px);margin:4px 0 10px;color:var(--brown)}
 .ridge{width:120px;height:26px;margin:0 auto;color:var(--ink)}
+.band{background:var(--paper-deep);position:relative}
 
 /* reveal */
 .rv{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
 .rv.in{opacity:1;transform:none}
 
 /* ------------------------------------------------------------
+   Cableway: a cable drawn by JS with cars hung from it
+   - cars are positioned on the curve every frame (transform only)
+------------------------------------------------------------ */
+.cableway{position:absolute;left:0;right:0;pointer-events:none;color:var(--ink)}
+.cableway > svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.car{position:absolute;left:0;top:0;will-change:transform}
+.car-in{position:relative;transform-origin:0 0;transform-style:preserve-3d}
+.face{position:absolute;left:0;top:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.gface{width:var(--gw,52px);transform:translate(-50%,-4%)}
+.gface svg{width:100%;height:auto;overflow:visible}
+
+/* ------------------------------------------------------------
    Hero
 ------------------------------------------------------------ */
-#hero{min-height:calc(100svh - 56px);display:flex;flex-direction:column;justify-content:center;position:relative;padding:40px 0 0;overflow:hidden}
-.hero-sky{position:absolute;left:0;right:0;top:-10px;color:var(--ink);opacity:.9;pointer-events:none}
-.hero-sky svg{width:100%;height:auto}
-.hero-in{position:relative;text-align:center;padding:120px 20px 0}
+#hero{min-height:calc(100svh - var(--nav));display:flex;flex-direction:column;justify-content:flex-end;position:relative;padding:0;overflow:hidden}
+#hero .cableway{top:0;height:175px;--gw:44px}
+.hero-in{position:relative;text-align:center;padding:150px 20px 0}
 .hero-in .eyebrow{max-width:360px;margin:0 auto 10px;line-height:1.9;text-wrap:balance}
-.names{font-size:clamp(84px,16vw,172px);margin:6px 0 0;color:var(--ink)}
+.names{font-size:clamp(80px,13vw,152px);margin:6px 0 0;color:var(--ink)}
 .names .amp{font-size:.72em;position:relative;top:-.08em;margin:0 .04em;color:var(--brown)}
 .under{width:200px;height:34px;margin:-4px auto 6px}
 .getting{font-family:var(--sans);font-size:13px;letter-spacing:.42em;text-transform:uppercase;margin:0 0 14px}
-.heart{width:16px;height:16px;margin:0 auto 24px;color:var(--brown)}
-.facts{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 34px;font-family:var(--sans);font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft)}
-.facts span{display:flex;align-items:center;gap:10px}
-.facts svg{width:16px;height:16px}
-.count{margin:30px auto 0;display:inline-block;border:var(--line);border-radius:3px;padding:14px 22px 10px;background:var(--cream);box-shadow:4px 4px 0 var(--sand)}
+.heart{width:16px;height:16px;margin:0 auto 18px;color:var(--brown)}
+.when{font-family:var(--sans);font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-soft)}
+.count{margin:20px auto 0;display:inline-block;border:var(--line);border-radius:3px;padding:14px 22px 10px;background:var(--cream);box-shadow:4px 4px 0 var(--sand)}
 .count b{display:block;font-family:var(--sans);font-weight:300;font-size:40px;line-height:1;letter-spacing:.02em}
 .count i{display:block;font-style:normal;font-family:var(--sans);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-faint);margin-top:4px}
-.hero-cta{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:34px}
-.hero-ground{position:relative;margin-top:40px;color:var(--ink)}
-.hero-ground svg{width:100%;height:auto;display:block}
+.hero-cta{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:24px}
+.hero-ground{position:relative;margin-top:26px;color:var(--ink)}
+.hero-ground svg{width:100%;height:clamp(170px,15vw,215px);display:block}
+/* the real pug from the invite, peeking over the ridge */
+.hero-pug{position:absolute;right:8%;bottom:-2px;height:88%;width:auto;pointer-events:none;
+  transform-origin:50% 100%;animation:peek 1.2s cubic-bezier(.2,.9,.3,1.2) .5s both}
+@keyframes peek{from{transform:translateY(40%)}to{transform:none}}
 @media(max-width:720px){
-  .hero-in{padding-top:120px}.under{width:150px}.hero-ground{margin-top:28px}
-  .hero-sky svg{height:150px}
-  /* on phones crop to the right-hand end so the pug stays in shot */
-  .hero-ground svg{height:210px}
+  #hero .cableway{height:170px;--gw:38px}
+  .hero-in{padding-top:150px}.under{width:150px}.hero-ground{margin-top:24px}
+  .hero-ground svg{height:200px}
+  .hero-pug{right:50%;transform:translateX(50%);height:82%;animation-name:peekm}
+  @keyframes peekm{from{transform:translate(50%,40%)}to{transform:translateX(50%)}}
 }
-@media(min-width:721px){.hero-in{padding-top:150px}}
 
 /* ------------------------------------------------------------
-   The day – details
+   RSVP envelope
+   - closed: bobs gently, tilts towards the mouse
+   - click: seal pops, flap opens, the card slides out, then the form opens
 ------------------------------------------------------------ */
-.detail-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:var(--line);border-radius:4px;background:var(--cream);overflow:hidden}
-.detail{padding:34px 26px 30px;text-align:center;border-right:1px solid var(--sand)}
-.detail:last-child{border-right:0}
-.detail svg{width:34px;height:34px;margin:0 auto 14px;color:var(--ink)}
-.detail .label{margin-bottom:8px;display:block}
-.detail b{display:block;font-weight:500;font-size:24px;line-height:1.2}
-.detail span{display:block;color:var(--ink-soft);font-size:17px;margin-top:4px}
-@media(max-width:900px){.detail-grid{grid-template-columns:1fr 1fr}.detail{border-bottom:1px solid var(--sand)}.detail:nth-child(2n){border-right:0}.detail:nth-child(n+3){border-bottom:0}}
-@media(max-width:480px){.detail-grid{grid-template-columns:1fr}.detail{border-right:0 !important;border-bottom:1px solid var(--sand) !important}.detail:last-child{border-bottom:0 !important}}
-.welcome{text-align:center;max-width:620px;margin:52px auto 0;font-size:22px;line-height:1.6}
-.welcome .script{font-size:40px;color:var(--brown);margin-top:16px}
+#rsvp{padding-top:40px}
+.env-stage{max-width:540px;margin:0 auto;position:relative}
+.env-space{position:relative;padding-top:38%}
+.env-hint{position:absolute;bottom:10px;left:0;right:0;text-align:center;transition:opacity .4s}
+.env-hint .script{font-size:clamp(44px,8vw,60px);color:var(--brown)}
+.env-hint .eyebrow{margin-top:6px}
+.env-hint svg{width:34px;height:40px;margin:6px auto 0;color:var(--ink-faint)}
+.env.open ~ .env-hint,.env-stage.opened .env-hint{opacity:0}
+.env{position:relative;width:100%;aspect-ratio:1.6/1;cursor:pointer;outline:none;
+  --rx:0deg;--ry:0deg;perspective:1400px;animation:bob 4.5s ease-in-out infinite}
+.env.open{animation:none}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.env-in{position:absolute;inset:0;transform:rotateX(var(--rx)) rotateY(var(--ry));transition:transform .25s ease-out}
+.env:focus-visible .env-in{outline:2px dashed var(--brown);outline-offset:8px;border-radius:8px}
+.env-back{position:absolute;inset:0;background:var(--sand);border:var(--line);border-radius:6px;box-shadow:8px 10px 0 rgba(166,141,120,.35)}
+.env-back::after{content:"";position:absolute;inset:8px;border:1px dashed rgba(42,34,28,.25);border-radius:3px}
+.env-card{position:absolute;left:6%;right:6%;top:5%;height:90%;z-index:2;background:var(--cream);border:var(--line);border-radius:6px;
+  text-align:center;padding:7% 6% 0;transition:transform .9s cubic-bezier(.2,.85,.25,1) .4s;container-type:inline-size}
+.env.open .env-card{transform:translateY(-64%)}
+.env-card .eyebrow{font-size:max(10px,2.4cqw)}
+.env-card .script{font-size:12cqw;color:var(--brown);margin:2cqw 0 1cqw}
+.env-card p{font-size:max(14px,3.6cqw);color:var(--ink-soft);margin:0 0 3cqw}
+.env-card .go{display:inline-block;font-family:var(--sans);font-size:max(10px,2.3cqw);letter-spacing:.24em;text-transform:uppercase;background:var(--ink);color:var(--paper);padding:2.4cqw 4.5cqw 2cqw;border-radius:3px}
+/* lift-pass notches on the card */
+.env-card::before,.env-card::after{content:"";position:absolute;top:26%;width:5cqw;height:5cqw;border-radius:50%;background:var(--sand);border:var(--line)}
+.env-card::before{left:-2.6cqw}.env-card::after{right:-2.6cqw}
+.env-front{position:absolute;inset:0;z-index:3;pointer-events:none}
+.env-front svg{position:absolute;inset:0;width:100%;height:100%}
+.env-front .to{position:absolute;left:0;right:0;bottom:4%;text-align:center;font-family:var(--script);font-size:clamp(24px,6vw,34px);color:var(--brown)}
+.stamp{position:absolute;right:7%;bottom:12%;width:14%;aspect-ratio:4/5;background:var(--cream);padding:5px;transform:rotate(6deg);
+  /* solid middle + a row of dots round the edge = perforations */
+  -webkit-mask:linear-gradient(#000 0 0) content-box,radial-gradient(circle,#000 62%,transparent 66%) -4px -4px/8px 8px round;
+          mask:linear-gradient(#000 0 0) content-box,radial-gradient(circle,#000 62%,transparent 66%) -4px -4px/8px 8px round}
+.stamp div{width:100%;height:100%;border:1px solid var(--ink-faint);display:flex;align-items:flex-end;justify-content:center;overflow:hidden;background:var(--paper)}
+.stamp img{width:86%;display:block}
+.postmark{position:absolute;right:21%;bottom:24%;width:16%;aspect-ratio:1;border:1.5px solid rgba(42,34,28,.45);border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:var(--sans);font-size:clamp(7px,1.5vw,9px);letter-spacing:.14em;color:rgba(42,34,28,.55);text-align:center;line-height:1.5;transform:rotate(-14deg)}
+.env-flap{position:absolute;left:0;right:0;top:0;height:64%;z-index:4;transform-origin:50% 0;
+  transform:perspective(1200px) rotateX(0deg);transition:transform .7s cubic-bezier(.4,.1,.3,1),z-index 0s .32s}
+.env-flap svg{width:100%;height:100%;overflow:visible}
+.env:not(.open):hover .env-flap{transform:perspective(1200px) rotateX(16deg)}
+.env.open .env-flap{transform:perspective(1200px) rotateX(180deg);z-index:1}
+.seal{position:absolute;left:50%;top:64%;width:17%;aspect-ratio:1;margin:-8.5% 0 0 -8.5%;z-index:5;
+  border-radius:47% 53% 51% 49%/52% 48% 52% 48%;background:radial-gradient(circle at 35% 30%,#7a5640,var(--brown) 55%,#33231a);
+  box-shadow:0 3px 6px rgba(42,34,28,.35),inset 0 0 0 4px rgba(0,0,0,.12),inset 0 0 0 7px rgba(255,255,255,.06);
+  display:flex;align-items:center;justify-content:center;color:#e9dccb;transition:transform .45s cubic-bezier(.5,-0.4,.7,1),opacity .35s}
+.seal svg{width:46%;height:46%}
+.env:not(.open):hover .seal{transform:scale(1.06) rotate(-6deg)}
+.env.open .seal{transform:translateY(30%) scale(.3) rotate(-60deg);opacity:0}
+.env-after{text-align:center;margin-top:30px}
+.env-after .eyebrow{margin-bottom:6px}
+
+/* ------------------------------------------------------------
+   Snowboards: the invite boards with live text in the blank areas
+------------------------------------------------------------ */
+.board{position:relative;width:clamp(280px,29vw,350px);margin:0 auto;container-type:inline-size;filter:drop-shadow(7px 9px 0 rgba(220,203,179,.9))}
+.board > img{width:100%;height:auto;display:block}
+.btext{position:absolute;left:11%;right:11%;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;text-align:center}
+.front .btext{top:16.4%;bottom:41.4%}
+.back .btext{top:16.6%;bottom:28.4%}
+.btext .caps{font-family:var(--sans);font-size:4.1cqw;letter-spacing:.2em;text-transform:uppercase;line-height:1.7}
+.btext .bnames{font-family:var(--script);font-size:19cqw;line-height:1;margin-top:1cqw}
+.btext .bridge{width:72%;height:8cqw;color:var(--ink)}
+.btext .bheart{width:5cqw;height:5cqw;color:var(--ink)}
+.blist{list-style:none;margin:0;padding:0;align-self:stretch;text-align:left;display:flex;flex-direction:column;gap:4.5cqw}
+.blist li{display:flex;gap:5cqw;align-items:flex-start}
+.blist svg{width:8cqw;height:8cqw;flex:none;color:var(--ink);margin-top:-.6cqw}
+.blist b{display:block;font-family:var(--sans);font-weight:400;font-size:4.3cqw;letter-spacing:.18em;text-transform:uppercase;line-height:1.5}
+.blist span{display:block;font-size:4.6cqw;color:var(--ink-soft);line-height:1.3;font-style:italic}
+.bmsg{font-family:var(--script);font-size:8cqw;line-height:1.15;transform:rotate(-4deg)}
+.btitle{font-family:var(--script);font-size:13cqw;line-height:1.05;transform:rotate(-6deg)}
+.binfo{align-self:stretch;text-align:center}
+.binfo .bh{display:flex;flex-direction:column;align-items:center;gap:1cqw;margin-bottom:2.5cqw}
+.binfo .bh svg{width:10cqw;height:10cqw;color:var(--ink)}
+.binfo .bh b{font-family:var(--sans);font-weight:400;font-size:4.3cqw;letter-spacing:.24em;text-transform:uppercase}
+.bbox{border:1.5px solid var(--ink);border-radius:3.5cqw;padding:3.5cqw 4cqw;text-align:left;background:rgba(251,248,241,.6)}
+.bbox ul{list-style:none;margin:0;padding:0}
+.bbox li{display:flex;justify-content:space-between;gap:2cqw;flex-wrap:wrap;padding:1.8cqw 0;border-top:1px dashed var(--ink-faint);font-size:4.8cqw;line-height:1.25}
+.bbox li:first-child{border-top:0;padding-top:0}
+.bbox li em,.bbox li a{font-size:4.4cqw;color:var(--ink-soft)}
+.bbox .note{font-family:var(--sans);font-size:3.2cqw;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-top:2.5cqw;text-align:center}
+
+/* the day: board + piste side by side */
+.day-grid{display:grid;grid-template-columns:auto 1fr;gap:72px;align-items:start;max-width:980px;margin:0 auto}
+@media(max-width:860px){.day-grid{grid-template-columns:1fr;gap:56px}}
+.pistecol{padding-top:40px}
+.pistecol .script.h{font-size:clamp(46px,6vw,60px);color:var(--brown);text-align:center;margin-bottom:8px}
+.pistecol .eyebrow{text-align:center;margin-bottom:34px}
 
 /* ------------------------------------------------------------
    Timeline – the piste map
 ------------------------------------------------------------ */
-.piste{position:relative;max-width:640px;margin:0 auto;padding-left:62px}
-.piste::before{
-  content:"";position:absolute;left:21px;top:8px;bottom:8px;width:0;
-  border-left:2px dashed var(--ink-faint);
-}
-.stop{position:relative;padding:0 0 38px}
+.piste{position:relative;max-width:560px;margin:0 auto;padding-left:62px}
+.piste::before{content:"";position:absolute;left:21px;top:8px;bottom:8px;width:0;border-left:2px dashed var(--ink-faint)}
+.stop{position:relative;padding:0 0 34px}
 .stop:last-child{padding-bottom:0}
-.marker{
-  position:absolute;left:-62px;top:0;width:44px;height:44px;border-radius:50%;
-  border:var(--line);background:var(--cream);display:flex;align-items:center;justify-content:center;
-}
+.marker{position:absolute;left:-62px;top:0;width:44px;height:44px;border-radius:50%;border:var(--line);background:var(--cream);display:flex;align-items:center;justify-content:center}
 .marker i{display:block;width:16px;height:16px;border-radius:50%;background:var(--green)}
 .marker.b i{background:var(--blue)}.marker.r i{background:var(--red)}.marker.k i{background:var(--black)}
 .marker.sq i{border-radius:2px;transform:rotate(45deg);width:14px;height:14px}
 .stop time{font-family:var(--sans);font-size:12px;letter-spacing:.28em;color:var(--ink-faint);display:block;padding-top:6px}
 .stop h3{font-size:26px;font-weight:500;margin:2px 0 4px}
 .stop p{color:var(--ink-soft);margin:0;font-size:18px}
-.key{display:flex;flex-wrap:wrap;gap:8px 22px;justify-content:center;margin-top:46px;font-family:var(--sans);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint)}
+.key{display:flex;flex-wrap:wrap;gap:8px 22px;justify-content:center;margin-top:40px;font-family:var(--sans);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint)}
 .key span{display:flex;align-items:center;gap:8px}
 .key i{width:10px;height:10px;border-radius:50%;display:inline-block}
 
 /* ------------------------------------------------------------
-   Info boxes (taxi / hotel / parking) — the invite's drawn boxes
+   The ride up: cable cars turn into polaroids as you scroll
 ------------------------------------------------------------ */
-.band{background:var(--paper-deep);position:relative}
-.boxes{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
-@media(max-width:860px){.boxes{grid-template-columns:1fr}}
-.box{border:var(--line);border-radius:6px;background:var(--cream);padding:30px 28px 26px;position:relative;box-shadow:5px 5px 0 var(--sand)}
-.box .bh{display:flex;align-items:center;gap:14px;margin-bottom:14px}
-.box .bh svg{width:30px;height:30px;color:var(--ink)}
-.box .bh h3{font-family:var(--sans);font-size:12px;letter-spacing:.3em;text-transform:uppercase;font-weight:600;padding-top:3px}
-.box ul{list-style:none;margin:0;padding:0}
-.box li{padding:10px 0;border-top:1px solid var(--sand);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.box li:first-child{border-top:0;padding-top:0}
-.box li em{color:var(--ink-faint);font-style:italic;font-size:16px}
-.box .pl{font-family:var(--sans);font-size:11px;letter-spacing:.14em;color:var(--ink-faint);border:1px dashed var(--ink-faint);padding:12px;text-align:center;border-radius:3px;margin-top:4px}
-.addr{text-align:center;margin-bottom:46px}
+#story{padding:0;height:360vh;position:relative}
+.ride-pin{position:sticky;top:var(--nav);height:calc(100svh - var(--nav));overflow:hidden;display:flex;flex-direction:column}
+.ride-pin .shead{margin:0;padding-top:clamp(20px,4vh,44px)}
+.ride-pin .shead h2{display:grid}
+.ride-pin .shead h2 span{grid-area:1/1;transition:opacity .6s}
+.ride-pin .shead h2 span + span{opacity:0}
+.ride-pin.done .shead h2 span{opacity:0}.ride-pin.done .shead h2 span + span{opacity:1}
+.ride-stage{position:relative;flex:1}
+.ride-stage .cableway{inset:0;--gw:clamp(48px,6vw,78px)}
+.ride-ground{position:absolute;left:0;right:0;bottom:0;color:var(--ink);opacity:.5}
+.ride-ground svg{width:100%;height:auto}
+.pface{--pw:clamp(110px,12vw,184px);width:var(--pw);transform:translateX(-50%) rotateY(180deg);top:4px;
+  background:#fffdf8;padding:calc(var(--pw)*.07) calc(var(--pw)*.07) 0;box-shadow:0 10px 22px rgba(42,34,28,.18),0 1px 2px rgba(42,34,28,.2);margin:0}
+.pface img{display:block;width:100%;aspect-ratio:1;object-fit:cover;background:var(--sand)}
+.pface figcaption{font-family:var(--script);font-size:calc(var(--pw)*.13);line-height:1;text-align:center;padding:calc(var(--pw)*.05) 4px calc(var(--pw)*.07);color:var(--ink)}
+/* wooden peg on the cable */
+.pface::before{content:"";position:absolute;left:50%;top:-12px;width:9px;height:26px;margin-left:-4.5px;background:#b89a7c;border:1px solid var(--brown);border-radius:2px;z-index:1}
+.ride-hint{position:absolute;left:0;right:0;bottom:3%;text-align:center;transition:opacity .4s}
+.ride-hint svg{width:18px;height:28px;margin:6px auto 0;color:var(--ink-faint);animation:nudge 1.6s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateY(5px)}}
+@media(max-width:720px){#story{height:320vh}.pface{--pw:clamp(92px,27vw,118px)}}
+
+/* ------------------------------------------------------------
+   Travel
+------------------------------------------------------------ */
+.travel-grid{display:grid;grid-template-columns:1fr auto;gap:72px;align-items:start;max-width:980px;margin:0 auto}
+@media(min-width:861px){.travel-grid > :first-child{position:sticky;top:calc(var(--nav) + 30px)}}
+@media(max-width:860px){.travel-grid{grid-template-columns:1fr;gap:48px}}
+.addr{text-align:center;margin:40px 0 36px}
 .addr .script{font-size:54px;color:var(--brown)}
 .addr p{font-size:20px;color:var(--ink-soft)}
+.box{border:var(--line);border-radius:6px;background:var(--cream);padding:26px 26px 22px;position:relative;box-shadow:5px 5px 0 var(--sand);margin-bottom:24px}
+.box .bh{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.box .bh svg{width:30px;height:30px;color:var(--ink)}
+.box .bh h3{font-family:var(--sans);font-size:12px;letter-spacing:.3em;text-transform:uppercase;font-weight:600;padding-top:3px}
+.box p:last-child{margin:0}
 
 /* ------------------------------------------------------------
    Gifts
@@ -225,18 +335,10 @@ section{padding:88px 0}
 .faq details p{padding:0 0 22px;color:var(--ink-soft);font-size:19px;max-width:620px}
 
 /* ------------------------------------------------------------
-   RSVP call-out
------------------------------------------------------------- */
-.rsvp-cta{max-width:720px;margin:0 auto;text-align:center;border:var(--line);border-radius:14px;background:var(--cream);padding:48px 30px 42px;position:relative;box-shadow:6px 6px 0 var(--sand)}
-.rsvp-cta::before,.rsvp-cta::after{content:"";position:absolute;width:26px;height:26px;border-radius:50%;background:var(--paper);border:var(--line);top:50%;margin-top:-13px}
-.rsvp-cta::before{left:-14px}.rsvp-cta::after{right:-14px}
-.rsvp-cta .script{font-size:60px;color:var(--brown);margin:6px 0 10px}
-.rsvp-cta p{font-size:20px;color:var(--ink-soft);max-width:460px;margin:0 auto 24px}
-
-/* ------------------------------------------------------------
    Footer
 ------------------------------------------------------------ */
-footer{text-align:center;padding:70px 20px 48px;position:relative;z-index:1}
+footer{text-align:center;padding:40px 20px 48px;position:relative;z-index:1}
+.foot-pug{width:110px;height:auto;margin:0 auto 4px;display:block}
 footer .script{font-size:clamp(48px,7vw,66px);color:var(--brown)}
 .paws{display:flex;justify-content:center;gap:14px;margin:18px auto 24px;color:var(--ink)}
 .paws svg{width:22px;height:22px}
@@ -252,6 +354,8 @@ dialog{
   padding:0;width:min(600px,calc(100vw - 32px));max-height:calc(100svh - 32px);
   box-shadow:8px 8px 0 var(--sand);
 }
+dialog[open]{animation:pop .35s cubic-bezier(.2,.9,.3,1.1)}
+@keyframes pop{from{opacity:0;transform:translateY(16px) scale(.97)}}
 dialog::backdrop{background:rgba(42,34,28,.55);backdrop-filter:blur(2px)}
 .mhead{display:flex;align-items:center;justify-content:space-between;padding:22px 26px 14px;border-bottom:1px solid var(--sand)}
 .mhead .script{font-size:44px;color:var(--brown)}
@@ -292,14 +396,27 @@ dialog::backdrop{background:rgba(42,34,28,.55);backdrop-filter:blur(2px)}
 .liftpass ul{list-style:none;padding:0;margin:14px 0 0;border-top:1px dashed var(--ink-faint)}
 .liftpass li{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dashed var(--ink-faint);font-size:18px}
 .liftpass li span:last-child{font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);padding-top:4px}
-.liftpass .pug{width:70px;margin:16px auto 0;color:var(--ink)}
+.liftpass .pug{width:84px;height:auto;margin:16px auto 0;display:block}
+
+/* ------------------------------------------------------------
+   Reduced motion: everything lands in its final state
+------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none;transition:none}
+  .env,.hero-pug,.ride-hint svg{animation:none}
+  #story{height:auto}
+  .ride-pin{position:relative;top:0;height:min(820px,100svh)}
+  .ride-hint{display:none}
+}
 </style>
 </head>
 <body>
 
 <!-- ============================================================
-     Inline SVG symbols: every illustration on the page is drawn
-     here once as line art and reused with <use>.
+     Inline SVG symbols: line art reused with <use>.
+     The pug, the couple and the snowboards are the invite artwork
+     itself, in /img.
      ============================================================ -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -308,15 +425,8 @@ dialog::backdrop{background:rgba(42,34,28,.55);backdrop-filter:blur(2px)}
       <feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="7" result="t"/>
       <feDisplacementMap in="SourceGraphic" in2="t" scale="1.6" xChannelSelector="R" yChannelSelector="G"/>
     </filter>
-    <pattern id="hatch" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-      <line x1="0" y1="0" x2="0" y2="4" stroke="currentColor" stroke-width="1.1"/>
-    </pattern>
-    <pattern id="hatch2" width="3" height="3" patternUnits="userSpaceOnUse" patternTransform="rotate(-40)">
-      <line x1="0" y1="0" x2="0" y2="3" stroke="currentColor" stroke-width="1.2"/>
-    </pattern>
   </defs>
 
-  <!-- pine tree -->
   <symbol id="pine" viewBox="0 0 40 60">
     <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
       <path d="M20 2 L10 18 h5 L7 32 h6 L3 48 h34 L27 32 h6 L23 18 h5 Z"/>
@@ -325,7 +435,6 @@ dialog::backdrop{background:rgba(42,34,28,.55);backdrop-filter:blur(2px)}
     </g>
   </symbol>
 
-  <!-- snowflake -->
   <symbol id="flake" viewBox="0 0 20 20">
     <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
       <path d="M10 1v18M1 10h18M3.6 3.6l12.8 12.8M16.4 3.6L3.6 16.4"/>
@@ -333,7 +442,6 @@ dialog::backdrop{background:rgba(42,34,28,.55);backdrop-filter:blur(2px)}
     </g>
   </symbol>
 
-  <!-- paw print -->
   <symbol id="paw" viewBox="0 0 24 24">
     <g fill="currentColor">
       <ellipse cx="12" cy="15.5" rx="5" ry="4.4"/>
@@ -344,12 +452,10 @@ dialog::backdrop{background:rgba(42,34,28,.55);backdrop-filter:blur(2px)}
     </g>
   </symbol>
 
-  <!-- heart -->
   <symbol id="heart" viewBox="0 0 24 24">
     <path d="M12 21s-7.5-5.2-9.6-10C.9 7.4 3 3.5 6.8 3.5c2.2 0 3.9 1.3 5.2 3 1.3-1.7 3-3 5.2-3 3.8 0 5.9 3.9 4.4 7.5C19.5 15.8 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
   </symbol>
 
-  <!-- small ridge used as an underline / divider -->
   <symbol id="ridge" viewBox="0 0 120 26">
     <g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
       <path d="M2 24 L28 10 L38 16 L52 3 L66 15 L76 9 L96 22 L118 24"/>
@@ -359,7 +465,6 @@ dialog::backdrop{background:rgba(42,34,28,.55);backdrop-filter:blur(2px)}
     </g>
   </symbol>
 
-  <!-- crossed skis and poles -->
   <symbol id="skis" viewBox="0 0 80 100">
     <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
       <path d="M22 6 C16 4 14 8 16 14 L58 92 C60 96 64 96 65 93"/>
@@ -371,13 +476,20 @@ dialog::backdrop{background:rgba(42,34,28,.55);backdrop-filter:blur(2px)}
     </g>
   </symbol>
 
-  <!-- gondola cabin -->
-  <symbol id="gondola" viewBox="0 0 40 52">
-    <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M20 0 v8 M14 8 h12 M20 8 v8"/>
-      <path d="M10 16 h20 l4 8 v22 a4 4 0 0 1 -4 4 h-20 a4 4 0 0 1 -4 -4 v-22 z"/>
-      <path d="M8 26 h24 M20 16 v34"/>
-      <rect x="10" y="28" width="8" height="10" rx="1"/><rect x="22" y="28" width="8" height="10" rx="1"/>
+  <!-- gondola cabin, drawn like the ones on the back of the invite.
+       The grip sits on the cable at y≈4. -->
+  <symbol id="gondola" viewBox="0 0 60 92">
+    <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="21" y="0" width="18" height="8" rx="4" fill="#fbf8f1"/>
+      <circle cx="26" cy="4" r="1.3" fill="currentColor" stroke="none"/><circle cx="34" cy="4" r="1.3" fill="currentColor" stroke="none"/>
+      <path d="M30 8 V21 M30 21 C24 21 19 23 17 28 M30 21 C36 21 41 23 43 28"/>
+      <path d="M10 34 C10 29 15 28 30 28 C45 28 50 29 50 34 L52 74 C52 82 46 86 30 86 C14 86 8 82 8 74 Z" fill="#fbf8f1"/>
+      <path d="M11 39 H49 L50 58 H10 Z" fill="#e3d6c3"/>
+      <path d="M20 39 V58 M30 39 V58 M40 39 V58"/>
+      <path d="M13 43 l5 -3 M33 44 l5 -4" opacity=".45"/>
+      <path d="M9 65 H51"/>
+      <path d="M9 71 H51" opacity=".45"/>
+      <path d="M22 86 V89 H38 V86" opacity=".6"/>
     </g>
   </symbol>
 
@@ -391,44 +503,30 @@ dialog::backdrop{background:rgba(42,34,28,.55);backdrop-filter:blur(2px)}
   <symbol id="i-car" viewBox="0 0 32 32"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22 l2-3 3-7 h14 l3 7 2 3 v5 h-24 z"/><path d="M4 22 h24 M9 12 h14"/><circle cx="10" cy="24.5" r="1.3"/><circle cx="22" cy="24.5" r="1.3"/><path d="M8 27 v2 M24 27 v2"/></g></symbol>
   <symbol id="i-note" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></g></symbol>
 
-  <!-- the pug: flat face, black button ears, dark mask, goggles pushed up, knitted scarf -->
-  <symbol id="pug" viewBox="0 0 200 232">
-    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <!-- scarf tail (behind) -->
-      <path d="M60 184 C52 196 46 206 44 216 L68 216 C68 206 72 196 78 186 Z"/>
-      <path d="M48 216 v9 M54 216 v9 M60 216 v9 M66 216 v9"/>
-      <path d="M52 198 h14 M50 206 h14" opacity=".5"/>
-      <!-- scarf band -->
-      <path d="M40 166 C62 188 138 188 160 166 L164 186 C138 210 62 210 36 186 Z" fill="#f3eee4"/>
-      <path d="M42 176 C64 198 136 198 158 176" opacity=".45"/>
-      <path d="M50 178 v10 M60 184 v10 M70 188 v10 M80 191 v10 M90 192 v10 M100 193 v10 M110 192 v10 M120 191 v10 M130 188 v10 M140 184 v10 M150 178 v10" opacity=".55" stroke-width="1.5"/>
-      <!-- head (wide, flat, slightly squashed) -->
-      <path d="M100 38 C146 38 172 68 172 110 C172 148 142 172 100 172 C58 172 28 148 28 110 C28 68 54 38 100 38 Z" fill="#f3eee4"/>
-      <!-- button ears, solid black like a fawn pug -->
-      <path d="M50 54 C36 62 30 86 38 104 C50 100 60 88 64 68 C60 60 56 56 50 54 Z" fill="currentColor"/>
-      <path d="M150 54 C164 62 170 86 162 104 C150 100 140 88 136 68 C140 60 144 56 150 54 Z" fill="currentColor"/>
-      <!-- goggles pushed up on the forehead -->
-      <path d="M58 64 C50 64 44 66 40 70 M142 64 C150 64 156 66 160 70" stroke-width="4"/>
-      <path d="M60 50 C60 42 74 38 92 40 C96 41 98 44 100 47 C102 44 104 41 108 40 C126 38 140 42 140 50 L138 66 C126 74 112 76 104 70 C102 68 100 66 100 66 C100 66 98 68 96 70 C88 76 74 74 62 66 Z" stroke-width="2.4"/>
-      <path d="M68 48 C74 44 84 43 92 45 M108 45 C116 43 126 44 132 48" opacity=".45"/>
-      <path d="M66 58 l8 -8 M72 62 l10 -10" opacity=".35"/>
-      <!-- forehead wrinkles -->
-      <path d="M100 96 V80"/>
-      <path d="M76 86 C84 80 92 80 98 84 M124 86 C116 80 108 80 102 84" opacity=".8"/>
-      <path d="M70 98 C78 92 86 92 94 96 M130 98 C122 92 114 92 106 96" opacity=".55"/>
-      <!-- dark mask: around the eyes and down over the muzzle -->
-      <path d="M62 104 C60 134 76 162 100 162 C124 162 140 134 138 104 C128 112 112 116 100 116 C88 116 72 112 62 104 Z" fill="url(#hatch2)" stroke-width="1.6"/>
-      <!-- eyes: big, round, wide set -->
-      <circle cx="74" cy="112" r="13" fill="#f3eee4"/><circle cx="126" cy="112" r="13" fill="#f3eee4"/>
-      <circle cx="75" cy="113" r="9" fill="currentColor"/><circle cx="127" cy="113" r="9" fill="currentColor"/>
-      <circle cx="71" cy="108" r="3" fill="#f3eee4" stroke="none"/><circle cx="123" cy="108" r="3" fill="#f3eee4" stroke="none"/>
-      <path d="M60 100 C64 96 70 95 76 97 M140 100 C136 96 130 95 124 97"/>
-      <!-- nose, high and flat -->
-      <path d="M90 128 C90 122 110 122 110 128 C110 134 103 138 100 138 C97 138 90 134 90 128 Z" fill="currentColor"/>
-      <path d="M100 138 V146 M100 146 C96 154 86 154 80 148 M100 146 C104 154 114 154 120 148"/>
-      <path d="M86 152 C92 158 108 158 114 152" opacity=".6"/>
-      <!-- jowls -->
-      <path d="M64 130 C62 142 66 152 72 158 M136 130 C138 142 134 152 128 158" opacity=".6"/>
+  <!-- mountain range used along the bottom of scenes -->
+  <symbol id="range" viewBox="0 0 1400 260" preserveAspectRatio="xMidYMax slice">
+    <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M-20 200 L120 110 L200 160 L300 70 L380 130 L470 40 L560 120 L640 90 L720 150 L820 60 L900 130 L980 100 L1080 170 L1180 90 L1260 140 L1340 110 L1420 170" opacity=".55" stroke-width="1.2"/>
+      <path d="M470 40 L452 66 L466 62 L478 74 L492 60 L506 66" opacity=".55"/>
+      <path d="M820 60 L804 84 L818 80 L830 92 L844 78 L856 84" opacity=".55"/>
+      <path d="M300 70 L290 86 L302 84 L310 92" opacity=".55"/>
+      <path d="M1180 90 L1168 108 L1180 106 L1190 116" opacity=".55"/>
+      <path d="M-20 260 L60 190 L140 230 L240 140 L320 200 L420 110 L520 190 L600 160 L700 220 L800 130 L900 200 L990 170 L1100 240 L1200 160 L1300 220 L1420 180 L1420 260 Z" fill="#f3eee4"/>
+      <path d="M420 110 L404 136 L418 130 L428 142 L440 128 L452 134"/>
+      <path d="M800 130 L786 152 L798 148 L808 160 L820 146 L832 152"/>
+      <path d="M240 140 L230 156 L242 154 L250 164"/>
+      <path d="M1200 160 L1188 178 L1200 176 L1210 186"/>
+      <path d="M440 160 l-14 20 M460 170 l-14 20 M480 182 l-12 18 M500 196 l-10 16" opacity=".5"/>
+      <path d="M820 176 l-14 20 M840 186 l-14 20 M860 198 l-12 18" opacity=".5"/>
+      <path d="M1220 200 l-14 20 M1240 210 l-12 18" opacity=".5"/>
+      <path d="M260 190 l-12 18 M280 200 l-10 16" opacity=".5"/>
+      <use href="#pine" width="34" height="52" x="80" y="200"/>
+      <use href="#pine" width="26" height="40" x="120" y="214"/>
+      <use href="#pine" width="30" height="46" x="560" y="208"/>
+      <use href="#pine" width="38" height="58" x="930" y="196"/>
+      <use href="#pine" width="26" height="40" x="975" y="214"/>
+      <use href="#pine" width="34" height="52" x="1300" y="206"/>
+      <path d="M-20 260 H1420"/>
     </g>
   </symbol>
 </svg>
@@ -440,7 +538,7 @@ dialog::backdrop{background:rgba(42,34,28,.55);backdrop-filter:blur(2px)}
     <a class="mono" href="#hero">F <span style="color:var(--brown)">&amp;</span> E</a>
     <div class="links">
       <a href="#day">The day</a>
-      <a href="#timeline" class="wide">Run of the day</a>
+      <a href="#story" class="wide">Our story</a>
       <a href="#travel">Travel</a>
       <a href="#gifts" class="wide">Gifts</a>
       <a href="#faq">FAQs</a>
@@ -453,19 +551,15 @@ dialog::backdrop{background:rgba(42,34,28,.55);backdrop-filter:blur(2px)}
 
 <!-- ============================================================ HERO -->
 <section id="hero">
-  <div class="hero-sky">
-    <svg viewBox="0 0 1400 300" preserveAspectRatio="xMidYMin slice" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" filter="url(#ink)">
-      <!-- gondola cable -->
-      <path d="M-20 20 C 300 60, 700 150, 1420 110"/>
-      <g transform="translate(300 62) rotate(8)"><use href="#gondola" width="36" height="46" x="-18"/></g>
-      <g transform="translate(560 96) rotate(3)"><use href="#gondola" width="36" height="46" x="-18"/></g>
-      <g transform="translate(1180 119) rotate(-4)"><use href="#gondola" width="36" height="46" x="-18"/></g>
-      <!-- flakes -->
-      <use href="#flake" width="18" height="18" x="140" y="110" opacity=".8"/>
-      <use href="#flake" width="12" height="12" x="420" y="40" opacity=".6"/>
-      <use href="#flake" width="14" height="14" x="900" y="60" opacity=".7"/>
-      <use href="#flake" width="20" height="20" x="1250" y="170" opacity=".8"/>
-      <use href="#flake" width="10" height="10" x="60" y="200" opacity=".6"/>
+  <!-- cable cars glide along this cable on their own, and faster as you scroll -->
+  <div class="cableway" id="heroCable" aria-hidden="true">
+    <svg filter="url(#ink)"><path class="rope" fill="none" stroke="currentColor" stroke-width="1.4"/><path class="rope2" fill="none" stroke="currentColor" stroke-width="1" opacity=".45"/>
+      <g class="flakes">
+        <use href="#flake" width="18" height="18" x="8%" y="62%" opacity=".7"/>
+        <use href="#flake" width="12" height="12" x="30%" y="18%" opacity=".55"/>
+        <use href="#flake" width="14" height="14" x="64%" y="70%" opacity=".6"/>
+        <use href="#flake" width="20" height="20" x="88%" y="58%" opacity=".7"/>
+      </g>
     </svg>
   </div>
 
@@ -475,59 +569,63 @@ dialog::backdrop{background:rgba(42,34,28,.55);backdrop-filter:blur(2px)}
     <svg class="under rv" viewBox="0 0 120 26"><use href="#ridge"/></svg>
     <div class="getting rv">are getting married</div>
     <svg class="heart rv"><use href="#heart"/></svg>
-    <div class="facts rv">
-      <span><svg><use href="#i-cal"/></svg> Monday 31 May 2027</span>
-      <span><svg><use href="#i-pin"/></svg> The Ashes Barns, Staffordshire</span>
-      <span><svg><use href="#i-clock"/></svg> Arrive from 12:15</span>
-    </div>
+    <div class="when rv">31 . 05 . 2027 &nbsp;·&nbsp; The Ashes Barns</div>
     <div class="count rv"><b id="days">—</b><i>days until the first lift</i></div>
     <div class="hero-cta rv">
-      <button class="btn solid" onclick="openRSVP()">RSVP</button>
+      <button class="btn solid" onclick="goRSVP()">RSVP</button>
       <a class="btn" href="#day">The details</a>
     </div>
   </div>
 
   <div class="hero-ground">
-    <svg id="ground" viewBox="0 0 1400 260" preserveAspectRatio="xMidYMax meet" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#ink)">
-      <!-- back ridge -->
-      <path d="M-20 200 L120 110 L200 160 L300 70 L380 130 L470 40 L560 120 L640 90 L720 150 L820 60 L900 130 L980 100 L1080 170 L1180 90 L1260 140 L1340 110 L1420 170" opacity=".55" stroke-width="1.2"/>
-      <path d="M470 40 L452 66 L466 62 L478 74 L492 60 L506 66" opacity=".55"/>
-      <path d="M820 60 L804 84 L818 80 L830 92 L844 78 L856 84" opacity=".55"/>
-      <path d="M300 70 L290 86 L302 84 L310 92" opacity=".55"/>
-      <path d="M1180 90 L1168 108 L1180 106 L1190 116" opacity=".55"/>
-      <!-- front ridge -->
-      <path d="M-20 260 L60 190 L140 230 L240 140 L320 200 L420 110 L520 190 L600 160 L700 220 L800 130 L900 200 L990 170 L1100 240 L1200 160 L1300 220 L1420 180 L1420 260 Z" fill="#f3eee4"/>
-      <path d="M420 110 L404 136 L418 130 L428 142 L440 128 L452 134"/>
-      <path d="M800 130 L786 152 L798 148 L808 160 L820 146 L832 152"/>
-      <path d="M240 140 L230 156 L242 154 L250 164"/>
-      <path d="M1200 160 L1188 178 L1200 176 L1210 186"/>
-      <!-- hatching on shadow slopes -->
-      <path d="M440 160 l-14 20 M460 170 l-14 20 M480 182 l-12 18 M500 196 l-10 16" opacity=".5"/>
-      <path d="M820 176 l-14 20 M840 186 l-14 20 M860 198 l-12 18" opacity=".5"/>
-      <path d="M1220 200 l-14 20 M1240 210 l-12 18" opacity=".5"/>
-      <path d="M260 190 l-12 18 M280 200 l-10 16" opacity=".5"/>
-      <!-- trees -->
-      <use href="#pine" width="34" height="52" x="80" y="200"/>
-      <use href="#pine" width="26" height="40" x="120" y="214"/>
-      <use href="#pine" width="30" height="46" x="560" y="208"/>
-      <use href="#pine" width="38" height="58" x="930" y="196"/>
-      <use href="#pine" width="26" height="40" x="975" y="214"/>
-      <use href="#pine" width="34" height="52" x="1300" y="206"/>
-      <!-- skis planted in the snow -->
-      <g transform="translate(680 190) scale(.55)"><use href="#skis" width="80" height="100" x="-40" y="-50"/></g>
-      <!-- the pug, sitting at the right -->
-      <use href="#pug" width="180" height="209" x="1070" y="56"/>
-      <use href="#paw" width="14" height="14" x="1262" y="238" fill="currentColor" opacity=".7"/>
-      <use href="#paw" width="14" height="14" x="1284" y="246" fill="currentColor" opacity=".7"/>
-      <use href="#paw" width="14" height="14" x="1306" y="238" fill="currentColor" opacity=".7"/>
-      <!-- base line -->
-      <path d="M-20 260 H1420"/>
-    </svg>
+    <svg id="ground" viewBox="0 0 1400 260" preserveAspectRatio="xMidYMax slice" filter="url(#ink)"><use href="#range"/></svg>
+    <img class="hero-pug" src="img/pug.webp" alt="Their pug, peeking over the mountains" width="443" height="665">
+  </div>
+</section>
+
+<!-- ============================================================ RSVP ENVELOPE -->
+<section id="rsvp">
+  <div class="wrap">
+    <div class="env-stage" id="envStage">
+      <div class="env-space"><div class="env-hint">
+        <div class="script">You're invited</div>
+        <div class="eyebrow">Break the seal to reply</div>
+        <svg viewBox="0 0 34 40" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M17 2 C 8 12, 26 20, 17 36 M10 30 l7 7 7 -7"/></svg>
+      </div></div>
+      <div class="env rv" id="env" role="button" tabindex="0" aria-label="Open the envelope to RSVP">
+        <div class="env-in">
+          <div class="env-back"></div>
+          <div class="env-card">
+            <div class="eyebrow">Lift pass · RSVP</div>
+            <div class="script" id="envTitle">Will you join us?</div>
+            <p id="envSub">Reply by 1 March 2027</p>
+            <span class="go" id="envGo">Reply now</span>
+          </div>
+          <div class="env-front">
+            <svg viewBox="0 0 160 100" preserveAspectRatio="none">
+              <path d="M0 2 L80 58 L160 2 V100 H0 Z" fill="#eadfce" stroke="#2a221c" stroke-width="1.5" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>
+              <path d="M1 99 L64 50 M159 99 L96 50" fill="none" stroke="#2a221c" stroke-width="1" opacity=".5" vector-effect="non-scaling-stroke"/>
+            </svg>
+            <div class="postmark">FIN &amp; ELLIE<br>31·05·27</div>
+            <div class="stamp"><div><img src="img/pug.webp" alt=""></div></div>
+            <div class="to">To you &amp; yours</div>
+          </div>
+          <div class="env-flap">
+            <svg viewBox="0 0 160 64" preserveAspectRatio="none"><path d="M1 1 H159 L84 61 Q80 64 76 61 Z" fill="#e4d6c2" stroke="#2a221c" stroke-width="1.5" vector-effect="non-scaling-stroke" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="seal" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#paw"/></svg></div>
+        </div>
+      </div>
+    </div>
+    <div class="env-after rv">
+      <div class="eyebrow">Reply by 1 March 2027</div>
+      <p class="small" style="margin:0">Who's coming, what you can't eat, and the one song that gets you on the dance floor.</p>
+    </div>
   </div>
 </section>
 
 <!-- ============================================================ THE DAY -->
-<section id="day">
+<section id="day" class="band">
   <div class="wrap">
     <div class="shead rv">
       <div class="eyebrow">Save the date</div>
@@ -535,71 +633,78 @@ dialog::backdrop{background:rgba(42,34,28,.55);backdrop-filter:blur(2px)}
       <svg class="ridge" viewBox="0 0 120 26"><use href="#ridge"/></svg>
     </div>
 
-    <div class="detail-grid rv">
-      <div class="detail">
-        <svg><use href="#i-cal"/></svg>
-        <span class="label">When</span>
-        <b>31 . 05 . 2027</b>
-        <span>Monday · spring bank holiday</span>
+    <div class="day-grid">
+      <!-- front of the invite: same board, live text -->
+      <div class="board front rv">
+        <img src="img/board-front.webp" alt="" width="664" height="3052">
+        <div class="btext">
+          <div class="caps">Together with their families you are invited to the wedding of</div>
+          <div class="bnames">Fin &amp; Ellie</div>
+          <svg class="bridge" viewBox="0 0 120 26" preserveAspectRatio="none"><use href="#ridge"/></svg>
+          <div class="caps" style="letter-spacing:.28em">Are getting married</div>
+          <svg class="bheart"><use href="#heart"/></svg>
+          <ul class="blist">
+            <li><svg><use href="#i-cal"/></svg><div><b>31.05.2027</b><span>Monday, bank holiday</span></div></li>
+            <li><svg><use href="#i-pin"/></svg><div><b>The Ashes Barns</b><span>Endon, Staffordshire</span></div></li>
+            <li><svg><use href="#i-clock"/></svg><div><b>Arrive from 12:15</b><span>Ceremony starts at 1:00</span></div></li>
+            <li><svg><use href="#i-tux"/></svg><div><b>Smart dress code</b><span>Bring a layer for the evening</span></div></li>
+          </ul>
+          <div class="bmsg">We'd love for you to join us as we celebrate our marriage and start this next adventure together!</div>
+          <svg class="bheart"><use href="#heart"/></svg>
+        </div>
       </div>
-      <div class="detail">
-        <svg><use href="#i-pin"/></svg>
-        <span class="label">Where</span>
-        <b>The Ashes Barns</b>
-        <span>Endon, Staffordshire</span>
-      </div>
-      <div class="detail">
-        <svg><use href="#i-clock"/></svg>
-        <span class="label">Time</span>
-        <b>Arrive from 12:15</b>
-        <span>Ceremony starts at 1:00</span>
-      </div>
-      <div class="detail">
-        <svg><use href="#i-tux"/></svg>
-        <span class="label">Dress code</span>
-        <b>Smart</b>
-        <span>Think taupe, cream and brown. Bring layers for the evening.</span>
-      </div>
-    </div>
 
-    <div class="welcome rv">
-      <p>We'd love for you to join us as we celebrate our marriage and start this next adventure together.</p>
-      <div class="script">The adventure continues…</div>
+      <div class="pistecol" id="timeline">
+        <div class="script h rv">Run of the day</div>
+        <div class="eyebrow rv">Piste map</div>
+        <div class="piste rv">
+          <div class="stop"><div class="marker"><i></i></div><time>12:15</time><h3>First lift</h3><p>Guests arrive. Find a seat, say hello, settle in.</p></div>
+          <div class="stop"><div class="marker b"><i></i></div><time>13:00</time><h3>The ceremony</h3><p>Fin and Ellie get married. Please be seated by 12:50.</p></div>
+          <div class="stop"><div class="marker b"><i></i></div><time>13:45</time><h3>Après</h3><p>Drinks, canapés and photos on the lawn.</p></div>
+          <div class="stop"><div class="marker r"><i></i></div><time>15:30</time><h3>Wedding breakfast</h3><p>Three courses, then the speeches.</p></div>
+          <div class="stop"><div class="marker r"><i></i></div><time>19:00</time><h3>Evening guests arrive</h3><p>The second wave hits the slopes.</p></div>
+          <div class="stop"><div class="marker k"><i></i></div><time>20:00</time><h3>First dance</h3><p>Then the floor is yours. You chose the songs, after all.</p></div>
+          <div class="stop"><div class="marker k"><i></i></div><time>21:30</time><h3>Evening food</h3><p>Something warm to keep you going.</p></div>
+          <div class="stop"><div class="marker k sq"><i></i></div><time>00:00</time><h3>Last lift</h3><p>Carriages. Taxis are listed below, please book ahead.</p></div>
+        </div>
+        <div class="key rv">
+          <span><i style="background:var(--green)"></i>Gentle</span>
+          <span><i style="background:var(--blue)"></i>Easy going</span>
+          <span><i style="background:var(--red)"></i>Getting lively</span>
+          <span><i style="background:var(--black)"></i>Expert dancers only</span>
+        </div>
+        <p class="small rv" style="text-align:center;margin-top:26px;font-style:italic">Times are placeholders until the final plan is confirmed.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============================================================ TIMELINE -->
-<section id="timeline" class="band">
-  <div class="wrap">
-    <div class="shead rv">
-      <div class="eyebrow">Piste map</div>
-      <h2 class="script">Run of the day</h2>
-      <svg class="ridge" viewBox="0 0 120 26"><use href="#ridge"/></svg>
+<!-- ============================================================ OUR STORY: the ride up
+     Scroll-driven: cable cars climb the cable, then flip into polaroids.
+     Swap the photos in /img (photo-1 … photo-5) and the captions below. -->
+<section id="story">
+  <div class="ride-pin">
+    <div class="shead">
+      <div class="eyebrow">How we got here</div>
+      <h2 class="script"><span>The ride up</span><span>The adventure continues…</span></h2>
     </div>
-
-    <div class="piste rv">
-      <div class="stop"><div class="marker"><i></i></div><time>12:15</time><h3>First lift</h3><p>Guests arrive. Find a seat, say hello, settle in.</p></div>
-      <div class="stop"><div class="marker b"><i></i></div><time>13:00</time><h3>The ceremony</h3><p>Fin and Ellie get married. Please be seated by 12:50.</p></div>
-      <div class="stop"><div class="marker b"><i></i></div><time>13:45</time><h3>Après</h3><p>Drinks, canapés and photos on the lawn.</p></div>
-      <div class="stop"><div class="marker r"><i></i></div><time>15:30</time><h3>Wedding breakfast</h3><p>Three courses, then the speeches.</p></div>
-      <div class="stop"><div class="marker r"><i></i></div><time>19:00</time><h3>Evening guests arrive</h3><p>The second wave hits the slopes.</p></div>
-      <div class="stop"><div class="marker k"><i></i></div><time>20:00</time><h3>First dance</h3><p>Then the floor is yours. You chose the songs, after all.</p></div>
-      <div class="stop"><div class="marker k"><i></i></div><time>21:30</time><h3>Evening food</h3><p>Something warm to keep you going.</p></div>
-      <div class="stop"><div class="marker k sq"><i></i></div><time>00:00</time><h3>Last lift</h3><p>Carriages. Taxis are listed below, please book ahead.</p></div>
+    <div class="ride-stage">
+      <div class="ride-ground" aria-hidden="true"><svg viewBox="0 0 1400 260" preserveAspectRatio="xMidYMax slice" style="height:clamp(120px,22vh,220px)" filter="url(#ink)"><use href="#range"/></svg></div>
+      <div class="cableway" id="rideCable">
+        <svg filter="url(#ink)" aria-hidden="true"><g class="towers"></g><path class="rope" fill="none" stroke="currentColor" stroke-width="1.6"/><path class="rope2" fill="none" stroke="currentColor" stroke-width="1" opacity=".45"/></svg>
+        <div class="car"><div class="car-in"><div class="face gface" aria-hidden="true"><svg viewBox="0 0 60 92"><use href="#gondola"/></svg></div><figure class="face pface"><img src="img/photo-1.svg" alt="Placeholder photo"><figcaption>Where it all began</figcaption></figure></div></div>
+        <div class="car"><div class="car-in"><div class="face gface" aria-hidden="true"><svg viewBox="0 0 60 92"><use href="#gondola"/></svg></div><figure class="face pface"><img src="img/photo-2.svg" alt="Placeholder photo"><figcaption>First trip to the Alps</figcaption></figure></div></div>
+        <div class="car"><div class="car-in"><div class="face gface" aria-hidden="true"><svg viewBox="0 0 60 92"><use href="#gondola"/></svg></div><figure class="face pface"><img src="img/photo-3.svg" alt="Placeholder photo"><figcaption>Then came the pug</figcaption></figure></div></div>
+        <div class="car"><div class="car-in"><div class="face gface" aria-hidden="true"><svg viewBox="0 0 60 92"><use href="#gondola"/></svg></div><figure class="face pface"><img src="img/photo-4.svg" alt="Placeholder photo"><figcaption>The proposal</figcaption></figure></div></div>
+        <div class="car"><div class="car-in"><div class="face gface" aria-hidden="true"><svg viewBox="0 0 60 92"><use href="#gondola"/></svg></div><figure class="face pface"><img src="img/photo-5.svg" alt="Placeholder photo"><figcaption>Next stop: 31.05.27</figcaption></figure></div></div>
+      </div>
+      <div class="ride-hint" id="rideHint"><span class="label">Keep scrolling</span><svg viewBox="0 0 18 28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M9 2 V24 M3 18 l6 6 6 -6"/></svg></div>
     </div>
-    <div class="key rv">
-      <span><i style="background:var(--green)"></i>Gentle</span>
-      <span><i style="background:var(--blue)"></i>Easy going</span>
-      <span><i style="background:var(--red)"></i>Getting lively</span>
-      <span><i style="background:var(--black)"></i>Expert dancers only</span>
-    </div>
-    <p class="small rv" style="text-align:center;margin-top:30px;font-style:italic">Times are placeholders until the final plan is confirmed.</p>
   </div>
 </section>
 
 <!-- ============================================================ TRAVEL + STAY -->
-<section id="travel">
+<section id="travel" class="band">
   <div class="wrap">
     <div class="shead rv">
       <div class="eyebrow">Getting there</div>
@@ -607,39 +712,57 @@ dialog::backdrop{background:rgba(42,34,28,.55);backdrop-filter:blur(2px)}
       <svg class="ridge" viewBox="0 0 120 26"><use href="#ridge"/></svg>
     </div>
 
-    <div class="addr rv">
-      <div class="script">The Ashes Barns</div>
-      <p>Endon, Stoke-on-Trent, Staffordshire<br><a href="https://maps.google.com/?q=The+Ashes+Barns+Endon" target="_blank" rel="noopener">Open in Google Maps</a></p>
-    </div>
+    <div class="travel-grid">
+      <div>
+        <div class="addr rv">
+          <div class="script">The Ashes Barns</div>
+          <p>Endon, Stoke-on-Trent, Staffordshire<br><a href="https://maps.google.com/?q=The+Ashes+Barns+Endon" target="_blank" rel="noopener">Open in Google Maps</a></p>
+        </div>
+        <div class="box rv">
+          <div class="bh"><svg><use href="#i-car"/></svg><h3>Parking</h3></div>
+          <p class="small">Free parking on site. Cars can be left overnight and collected the next morning. If you can, share a lift.</p>
+        </div>
+        <div class="box rv">
+          <div class="bh"><svg><use href="#i-clock"/></svg><h3>Timings</h3></div>
+          <p class="small">Day guests from 12:15 for a 1:00 ceremony. Evening guests from 7:00. Carriages at midnight.</p>
+        </div>
+      </div>
 
-    <div class="boxes">
-      <div class="box rv">
-        <div class="bh"><svg><use href="#i-car"/></svg><h3>Parking</h3></div>
-        <p class="small">Free parking on site. Cars can be left overnight and collected the next morning. If you can, share a lift.</p>
-      </div>
-      <div class="box rv">
-        <div class="bh"><svg><use href="#i-taxi"/></svg><h3>Taxi information</h3></div>
-        <ul>
-          <li><span>Taxi firm one</span><a href="tel:01234567890">01234 567890</a></li>
-          <li><span>Taxi firm two</span><a href="tel:01234567891">01234 567891</a></li>
-        </ul>
-        <div class="pl" style="margin-top:14px">Book for midnight well in advance</div>
-      </div>
-      <div class="box rv">
-        <div class="bh"><svg><use href="#i-bed"/></svg><h3>Hotel information</h3></div>
-        <ul>
-          <li><span>Hotel name</span><em>5 min away</em></li>
-          <li><span>B&amp;B name</span><em>10 min away</em></li>
-          <li><span>Inn name</span><em>Leek</em></li>
-        </ul>
-        <div class="pl" style="margin-top:14px">Mention the wedding when booking</div>
+      <!-- back of the invite: same board, live text in the taxi and hotel boxes -->
+      <div class="board back rv">
+        <img src="img/board-back.webp" alt="" width="668" height="3052">
+        <div class="btext">
+          <div class="btitle">The adventure continues…</div>
+          <svg class="bheart"><use href="#heart"/></svg>
+          <div class="binfo">
+            <div class="bh"><svg><use href="#i-taxi"/></svg><b>Taxi information</b></div>
+            <div class="bbox">
+              <ul>
+                <li><span>Taxi firm one</span><a href="tel:01234567890">01234 567890</a></li>
+                <li><span>Taxi firm two</span><a href="tel:01234567891">01234 567891</a></li>
+              </ul>
+              <div class="note">Book for midnight well ahead</div>
+            </div>
+          </div>
+          <div class="binfo">
+            <div class="bh"><svg><use href="#i-bed"/></svg><b>Hotel information</b></div>
+            <div class="bbox">
+              <ul>
+                <li><span>Hotel name</span><em>5 min</em></li>
+                <li><span>B&amp;B name</span><em>10 min</em></li>
+                <li><span>Inn name</span><em>Leek</em></li>
+              </ul>
+              <div class="note">Mention the wedding when booking</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============================================================ GIFTS -->
-<section id="gifts" class="band">
+<section id="gifts">
   <div class="wrap">
     <div class="shead rv">
       <div class="eyebrow">Gifts</div>
@@ -655,7 +778,7 @@ dialog::backdrop{background:rgba(42,34,28,.55);backdrop-filter:blur(2px)}
 </section>
 
 <!-- ============================================================ FAQ -->
-<section id="faq">
+<section id="faq" class="band">
   <div class="wrap">
     <div class="shead rv">
       <div class="eyebrow">Good to know</div>
@@ -675,21 +798,10 @@ dialog::backdrop{background:rgba(42,34,28,.55);backdrop-filter:blur(2px)}
   </div>
 </section>
 
-<!-- ============================================================ RSVP -->
-<section id="rsvp">
-  <div class="wrap">
-    <div class="rsvp-cta rv">
-      <div class="eyebrow">Reply by 1 March 2027</div>
-      <div class="script">Will you join us?</div>
-      <p>Let us know who's coming, what you can't eat and the one song that will get you on the dance floor.</p>
-      <button class="btn solid" onclick="openRSVP()">RSVP now</button>
-    </div>
-  </div>
-</section>
-
 </main>
 
 <footer>
+  <img class="foot-pug" src="img/pug.webp" alt="" width="443" height="665" loading="lazy">
   <div class="script">The adventure continues…</div>
   <div class="paws">
     <svg><use href="#paw"/></svg><svg><use href="#paw"/></svg><svg><use href="#paw"/></svg>
@@ -720,6 +832,7 @@ const DIETS=["No requirements","Vegetarian","Vegan","Gluten-free","Dairy-free","
 const WEDDING=new Date("2027-05-31T12:15:00");
 const $=s=>document.querySelector(s);
 const MOCK=location.protocol==="file:"||new URLSearchParams(location.search).has("mock");
+const REDUCE=matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const mock={
   households:[
@@ -760,21 +873,143 @@ async function call(url,init){
   return body;
 }
 
+/* ------------------------------------------------------------
+   Cableway
+   - The cable is a quadratic curve between two anchor points
+     (fractions of the container), sagging in the middle.
+   - at(t) gives the point on it; t outside 0..1 runs off-screen.
+------------------------------------------------------------ */
+class Cableway{
+  constructor(el,shape,towers=[]){
+    this.el=el;this.shape=shape;this.towers=towers;
+    this.cars=[...el.querySelectorAll(".car")];
+    this.layout();
+    new ResizeObserver(()=>this.layout()).observe(el);
+  }
+  layout(){
+    const w=this.el.clientWidth,h=this.el.clientHeight;
+    const {a,b,sag}=this.shape(w,h);
+    this.w=w;this.h=h;
+    this.P0=[a[0]*w,a[1]*h];this.P2=[b[0]*w,b[1]*h];
+    this.P1=[(this.P0[0]+this.P2[0])/2,(this.P0[1]+this.P2[1])/2+sag*h];
+    const svg=this.el.querySelector("svg");
+    svg.setAttribute("viewBox",`0 0 ${w} ${h}`);
+    const d=(dy)=>`M${this.P0[0]} ${this.P0[1]+dy} Q${this.P1[0]} ${this.P1[1]+dy} ${this.P2[0]} ${this.P2[1]+dy}`;
+    svg.querySelector(".rope").setAttribute("d",d(0));
+    svg.querySelector(".rope2").setAttribute("d",d(-5));
+    const g=svg.querySelector(".towers");
+    if(g) g.innerHTML=this.towers.map(t=>this.tower(t)).join("");
+    this.onLayout&&this.onLayout();
+  }
+  at(t){
+    const u=1-t,[a,b,c]=[this.P0,this.P1,this.P2];
+    return [u*u*a[0]+2*u*t*b[0]+t*t*c[0], u*u*a[1]+2*u*t*b[1]+t*t*c[1]];
+  }
+  /* a lattice pylon from the cable down to the ground */
+  tower(t){
+    const [x,y]=this.at(t),top=y-6,base=this.h,hw=Math.max(16,(base-top)*.09);
+    let p=`M${x-4} ${top} L${x-hw} ${base} M${x+4} ${top} L${x+hw} ${base} M${x-16} ${top} H${x+16}`;
+    const n=Math.max(3,Math.round((base-top)/46));
+    for(let i=0;i<n;i++){
+      const y1=top+(base-top)*i/n,y2=top+(base-top)*(i+1)/n;
+      const w1=4+(hw-4)*i/n,w2=4+(hw-4)*(i+1)/n;
+      p+=` M${x-w1} ${y1} L${x+w2} ${y2} M${x+w1} ${y1} L${x-w2} ${y2}`;
+    }
+    return `<path d="${p}" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>`;
+  }
+  place(car,t,{flip=0,swing=0}={}){
+    const [x,y]=this.at(t);
+    car.style.transform=`translate(${x}px,${y}px)`;
+    car.firstElementChild.style.transform=`rotateZ(${swing}deg) rotateY(${flip*180}deg)`;
+  }
+}
+
+/* ---------- hero: a lazy loop that speeds up with scroll ---------- */
+const hero=new Cableway($("#heroCable"),(w,h)=>w<=720
+  ?{a:[-.12,.5],b:[1.12,.06],sag:.16}
+  :{a:[-.08,.62],b:[1.08,.04],sag:.2});
+["","",""].forEach(()=>{const c=document.createElement("div");c.className="car";
+  c.innerHTML=`<div class="car-in"><div class="face gface"><svg viewBox="0 0 60 92"><use href="#gondola"/></svg></div></div>`;
+  hero.el.appendChild(c)});
+hero.cars=[...hero.el.querySelectorAll(".car")];
+
+/* ---------- the ride: scroll-driven ---------- */
+const ride=new Cableway($("#rideCable"),(w,h)=>w<h*1.05
+  ?{a:[0,.8],b:[1,.1],sag:.1}             // portrait: steeper, photos step up the screen
+  :{a:[-.06,.42],b:[1.06,.05],sag:.2},
+  [.05,.94]);
+const spots=()=>ride.w<ride.h*1.05?[.17,.335,.5,.665,.83]:[.13,.31,.5,.69,.87];
+
+const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
+const ease=t=>1-Math.pow(1-t,3);
+let rideP=REDUCE?1:0;
+
+function rideProgress(){
+  const s=$("#story"),pin=s.firstElementChild;
+  const r=s.getBoundingClientRect(),run=s.offsetHeight-pin.offsetHeight;
+  return run>0?clamp((-r.top+parseFloat(getComputedStyle(pin).top))/run):1;
+}
+
+function frame(now){
+  /* hero cars: drift ~1 cable length per 70 s, plus scroll */
+  const off=(REDUCE?0:now/70000)+scrollY/innerHeight*.45;
+  hero.cars.forEach((c,i)=>{
+    const t=((i/3+off)%1)*1.3-.15;
+    hero.place(c,t,{swing:REDUCE?0:Math.sin(now/900+i*2)*1.5});
+  });
+
+  /* ride: climb (0-.42), flip into polaroids (.45-.8), settle */
+  const p=REDUCE?1:rideProgress();rideP=p;
+  const climb=ease(clamp(p/.42));
+  ride.cars.forEach((c,i)=>{
+    const t=spots()[i]-(1-climb)*1.1;
+    const f=ease(clamp((p-.45-i*.05)/.14));
+    const sway=REDUCE?0:Math.sin(now/1100+i*1.7)*(f?2.2:1.2);
+    const tilt=f*(i%2?3.5:-3);
+    ride.place(c,t,{flip:f,swing:sway+tilt});
+    c.style.zIndex=f>.5?10+i:i;
+  });
+  $("#rideHint").style.opacity=p>.05?0:1;
+  $("#story .ride-pin").classList.toggle("done",p>.84);
+  if(!REDUCE) requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+if(REDUCE) addEventListener("resize",()=>requestAnimationFrame(frame));
+
+/* ---------- page bits ---------- */
 function init(){
   const d=Math.ceil((WEDDING-new Date())/864e5);
   $("#days").textContent=d>0?d:"0";
-  /* phones: crop the ground scene to its right-hand end (pug + trees) */
-  const fit=()=>$("#ground").setAttribute("preserveAspectRatio",innerWidth<=720?"xMaxYMax slice":"xMidYMax meet");
-  fit();addEventListener("resize",fit);
-  /* reveal on scroll */
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12});
   document.querySelectorAll(".rv").forEach(el=>io.observe(el));
-  /* active nav */
   const links=[...document.querySelectorAll(".links a")];
   const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+e.target.id))}}),{rootMargin:"-45% 0px -50% 0px"});
   document.querySelectorAll("main section").forEach(s=>so.observe(s));
 }
 init();
+
+/* ------------------------------------------------------------
+   Envelope
+------------------------------------------------------------ */
+const env=$("#env");
+function openEnvelope(){
+  if(env.classList.contains("open")){openRSVP();return}
+  env.classList.add("open");$("#envStage").classList.add("opened");
+  setTimeout(openRSVP,REDUCE?0:1250);
+}
+function goRSVP(){
+  $("#rsvp").scrollIntoView({behavior:REDUCE?"auto":"smooth",block:"center"});
+  setTimeout(openEnvelope,REDUCE?0:700);
+}
+env.addEventListener("click",openEnvelope);
+env.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openEnvelope()}});
+/* tilt towards the mouse */
+env.addEventListener("pointermove",e=>{
+  if(e.pointerType!=="mouse"||REDUCE) return;
+  const r=env.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+  env.style.setProperty("--ry",(x*12)+"deg");env.style.setProperty("--rx",(-y*9)+"deg");
+});
+env.addEventListener("pointerleave",()=>{env.style.setProperty("--ry","0deg");env.style.setProperty("--rx","0deg")});
 
 /* ------------------------------------------------------------
    RSVP modal
@@ -897,11 +1132,15 @@ function stepDone(){
       <div class="eyebrow">${coming.length?"Lift pass issued":"We'll miss you"}</div>
       <div class="script">${coming.length?"See you on the slopes":"Thank you for letting us know"}</div>
       <ul>${hh.guests.map(g=>`<li><span>${esc(g.name)}</span><span>${answers.guests[g.id].attending?"Attending":"Not attending"}</span></li>`).join("")}</ul>
-      <svg class="pug" viewBox="0 0 200 232"><use href="#pug"/></svg>
+      <img class="pug" src="img/pug.webp" alt="">
       <p class="small" style="margin:14px 0 0">You can come back and change this any time before 1 March 2027.</p>
     </div>
     <div class="mfoot" style="justify-content:center"><button class="btn" onclick="closeRSVP()">Done</button></div>`;
   $("#mbody").scrollTop=0;
+  /* the card in the envelope becomes their lift pass */
+  $("#envTitle").textContent=coming.length?"See you on the slopes":"Thanks for letting us know";
+  $("#envSub").textContent="Your reply is in";
+  $("#envGo").textContent="Change reply";
 }
 
 function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}

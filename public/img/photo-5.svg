@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+<!-- placeholder: replace with a real photo (square crop works best) -->
+<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9ae92"/><stop offset="1" stop-color="#5c4c3f"/></linearGradient>
+<filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2"/><feColorMatrix values="0 0 0 0 .2 0 0 0 0 .15 0 0 0 0 .1 0 0 0 .18 0"/></filter></defs>
+<rect width="600" height="600" fill="url(#g)"/>
+<circle cx="450" cy="170" r="56" fill="#fbf8f1" opacity=".35"/>
+<path d="M0 410 L160 290 L260 360 L380 250 L500 320 L600 290 V600 H0Z" fill="#2a221c" opacity=".16"/>
+<path d="M0 410 L160 290 L260 360 L380 250 L500 320 L600 290 " fill="none" stroke="#fbf8f1" stroke-width="3" opacity=".45" transform="translate(0 70)"/>
+<rect width="600" height="600" filter="url(#n)"/>
+<text x="300" y="540" text-anchor="middle" font-family="Josefin Sans, sans-serif" font-size="22" letter-spacing="8" fill="#fbf8f1" opacity=".8">YOUR PHOTO HERE</text>
+</svg>

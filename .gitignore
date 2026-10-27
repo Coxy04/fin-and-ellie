@@ -11,7 +11,9 @@ node_modules/
 !supabase/guests.example.csv
 
 # personal reference photos, not part of the site
+# (site images live in public/img and are always committed)
 *.jpg
 *.jpeg
 *.png
 *.PNG
+!public/img/**

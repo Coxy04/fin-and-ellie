@@ -5,7 +5,7 @@ import { next } from '@vercel/functions';
 import { isAuthed } from './lib/auth.js';
 
 export const config = {
-  matcher: ['/((?!login(?:\\.html)?$|api/login$|api/keepalive$|favicon\\.svg$).*)'],
+  matcher: ['/((?!login(?:\\.html)?$|api/login$|api/keepalive$|favicon\\.svg$|img/pug\\.webp$).*)'],
 };
 
 export default async function middleware(request) {
