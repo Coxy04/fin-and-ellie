@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+<!-- placeholder: replace with a real photo by setting "photo" in the CREW list -->
+<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2d3be"/><stop offset="1" stop-color="#b59c82"/></linearGradient></defs>
+<rect width="600" height="600" fill="url(#g)"/>
+<circle cx="300" cy="245" r="92" fill="#fbf8f1" opacity=".55"/>
+<path d="M120 600 C130 450 210 375 300 375 C390 375 470 450 480 600 Z" fill="#fbf8f1" opacity=".55"/>
+<text x="300" y="560" text-anchor="middle" font-family="Josefin Sans, sans-serif" font-size="24" letter-spacing="8" fill="#5c4c3f" opacity=".75">PHOTO TO COME</text>
+</svg>
