@@ -131,12 +131,15 @@ section{padding:88px 0}
 .face{position:absolute;left:0;top:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
 .gface{width:var(--gw,52px);transform:translate(-50%,-4%)}
 .gface svg{width:100%;height:auto;overflow:visible}
+/* mini Poppy in a gondola window (window band is x10-50, y39-58 of the 60x92 drawing) */
+.gwin{position:absolute;left:17.5%;top:42.6%;width:65%;height:20.4%;overflow:hidden;background:#e3d6c3}
+.gwin img{position:absolute;left:22%;width:56%;top:-14%;height:auto}
 
 /* ------------------------------------------------------------
    Hero
 ------------------------------------------------------------ */
 #hero{min-height:calc(100svh - var(--nav));display:flex;flex-direction:column;justify-content:flex-end;position:relative;padding:0;overflow:hidden}
-#hero .cableway{top:0;height:175px;--gw:44px}
+#hero .cableway{top:0;height:175px;--gw:56px}
 .hero-in{position:relative;text-align:center;padding:150px 20px 0}
 .hero-in .eyebrow{max-width:360px;margin:0 auto 10px;line-height:1.9;text-wrap:balance}
 .names{font-size:clamp(80px,13vw,152px);margin:6px 0 0;color:var(--ink)}
@@ -191,7 +194,7 @@ section{padding:88px 0}
 .puff{position:fixed;width:14px;height:14px;border-radius:50%;background:#fffdf8;border:1px solid rgba(42,34,28,.25);z-index:59;pointer-events:none}
 @keyframes peek{from{transform:translateY(40%)}to{transform:none}}
 @media(max-width:720px){
-  #hero .cableway{height:170px;--gw:38px}
+  #hero .cableway{height:170px;--gw:46px}
   .hero-in{padding-top:150px}.under{width:150px}.hero-ground{margin-top:24px}
   .hero-ground svg{height:200px}
   .hero-pug{right:50%;transform:translateX(50%);height:82%;animation-name:peekm}
@@ -790,10 +793,9 @@ dialog::backdrop{background:rgba(42,34,28,.55);-webkit-backdrop-filter:blur(2px)
   </div>
 
   <div class="hero-in">
-    <div class="eyebrow rv">Together with their families you are invited to the wedding of</div>
+    <div class="eyebrow rv">You are invited to the wedding of</div>
     <h1 class="script names rv">Fin <span class="amp">&amp;</span> Ellie</h1>
     <svg class="under rv" viewBox="0 0 120 26"><use href="#ridge"/></svg>
-    <div class="getting rv">are getting married</div>
     <svg class="heart rv"><use href="#heart"/></svg>
     <div class="when rv">31 . 05 . 2027 &nbsp;·&nbsp; The Ashes Barns</div>
     <div class="ticket rv" id="ticket" role="img" aria-label="Countdown to the wedding">
@@ -830,7 +832,7 @@ dialog::backdrop{background:rgba(42,34,28,.55);-webkit-backdrop-filter:blur(2px)
       <div class="ride-ground" aria-hidden="true"><svg viewBox="0 0 2800 260" preserveAspectRatio="xMidYMax slice" style="height:min(max(110px,9.3vw),26vh)" filter="url(#ink)"><use href="#range-wide"/></svg></div>
       <div class="cableway" id="rideCable">
         <svg filter="url(#ink)" aria-hidden="true"><g class="towers"></g><path class="rope" fill="none" stroke="currentColor" stroke-width="1.6"/><path class="rope2" fill="none" stroke="currentColor" stroke-width="1" opacity=".45"/></svg>
-        <div class="car"><div class="car-in"><div class="face gface" aria-hidden="true"><svg viewBox="0 0 60 92"><use href="#gondola"/></svg></div><figure class="face pface" data-story="Placeholder: how Fin and Ellie met. A line or two is plenty."><img src="img/photo-1.jpg" alt="Fin and Ellie in an early black and white selfie"><figcaption>Where it all began</figcaption></figure></div></div>
+        <div class="car"><div class="car-in"><div class="face gface" aria-hidden="true"><svg viewBox="0 0 60 92"><use href="#gondola"/></svg></div><figure class="face pface" data-story="It actually started a little before this, on 06/08/2015, when Fin asked Ellie to be his girlfriend in the Harvester car park in Milton Keynes."><img src="img/photo-1.jpg" alt="Fin and Ellie dressed up for their Year 11 prom"><figcaption>Year 11 Prom, 27th June 2016</figcaption></figure></div></div>
         <div class="car"><div class="car-in"><div class="face gface" aria-hidden="true"><svg viewBox="0 0 60 92"><use href="#gondola"/></svg></div><figure class="face pface" data-story="Our first ski trip, in 2017/18, to Whistler, Canada. We've since learnt Ellie is better at skiing than snowboarding, and we've been a few times every year since."><img src="img/photo-2.jpg" alt="Fin and Ellie in their ski gear at Whistler, Canada"><figcaption>The start of our shared love of snow</figcaption></figure></div></div>
         <div class="car"><div class="car-in"><div class="face gface" aria-hidden="true"><svg viewBox="0 0 60 92"><use href="#gondola"/></svg></div><figure class="face pface" data-story="Before our parents could enlighten us with their wisdom to sleep on getting a dog, we had already paid the deposit. Fin's worst mistake ever, as he was quickly knocked down to second favourite."><img src="img/photo-3.jpg" alt="Fin and Ellie with Poppy as a tiny puppy"><figcaption>Then came Poppy</figcaption></figure></div></div>
         <div class="car"><div class="car-in"><div class="face gface" aria-hidden="true"><svg viewBox="0 0 60 92"><use href="#gondola"/></svg></div><figure class="face pface" data-story="After a long ten-year wait for Ellie, the proposal finally came. Maybe the only time Ellie has been speechless in her life."><img src="img/photo-4.jpg" alt="Fin and Ellie just engaged, Ellie showing off the ring"><figcaption>The proposal</figcaption></figure></div></div>
@@ -897,7 +899,7 @@ dialog::backdrop{background:rgba(42,34,28,.55);-webkit-backdrop-filter:blur(2px)
       <div class="board front rv">
         <img src="img/board-front.webp" alt="" width="704" height="3058">
         <div class="btext">
-          <div class="caps">Together with their families you are invited to the wedding of</div>
+          <div class="caps">You are invited to the wedding of</div>
           <div class="bnames">Fin &amp; Ellie</div>
           <svg class="bridge" viewBox="0 0 120 26" preserveAspectRatio="none"><use href="#ridge"/></svg>
           <div class="caps" style="letter-spacing:.28em">Are getting married</div>
@@ -964,8 +966,8 @@ dialog::backdrop{background:rgba(42,34,28,.55);-webkit-backdrop-filter:blur(2px)
             <svg class="sk-i"><use href="#i-taxi"/></svg>
             <h3>Taxi information</h3>
             <ul>
-              <li><span>Taxi firm one</span><a href="tel:01234567890">01234 567890</a></li>
-              <li><span>Taxi firm two</span><a href="tel:01234567891">01234 567891</a></li>
+              <li><span>Leek Link Taxis</span><a href="tel:01538399999">01538 399999</a></li>
+              <li><span>Stoke Intercity</span><a href="tel:01782855855">01782 855855</a></li>
             </ul>
             <p class="sk-note">Book for midnight well ahead</p>
           </div>
@@ -973,7 +975,7 @@ dialog::backdrop{background:rgba(42,34,28,.55);-webkit-backdrop-filter:blur(2px)
           <div class="sk">
             <svg class="sk-i"><use href="#i-car"/></svg>
             <h3>Parking</h3>
-            <p>Free parking on site. Cars can stay overnight and be collected the next morning. If you can, share a lift.</p>
+            <p>Free parking on site. If you leave your car overnight, please collect it by 10am the next morning. If you can, share a lift.</p>
           </div>
           <svg class="sk-binding" viewBox="0 0 100 34" aria-hidden="true"><use href="#binding"/></svg>
         </div>
@@ -988,9 +990,9 @@ dialog::backdrop{background:rgba(42,34,28,.55);-webkit-backdrop-filter:blur(2px)
             <svg class="sk-i"><use href="#i-bed"/></svg>
             <h3>Hotel information</h3>
             <ul>
-              <li><span>Hotel name</span><em>5 min away</em></li>
-              <li><span>B&amp;B name</span><em>10 min away</em></li>
-              <li><span>Inn name</span><em>Leek</em></li>
+              <li><span>DoubleTree by Hilton</span><em>Stoke-on-Trent</em></li>
+              <li><span>Premier Inn</span><em>Leek</em></li>
+              <li><span>Hilton Garden Inn</span><em>Hanley</em></li>
             </ul>
             <p class="sk-note">Mention the wedding when booking</p>
           </div>
@@ -1022,7 +1024,7 @@ dialog::backdrop{background:rgba(42,34,28,.55);-webkit-backdrop-filter:blur(2px)
       <svg class="ridge" viewBox="0 0 120 26"><use href="#ridge"/></svg>
     </div>
     <div class="gift rv">
-      <p>Having you with us on the day is all we could ask for. If you'd like to give something, a contribution towards our honeymoon on the slopes would mean the world.</p>
+      <p>Having you with us on the day is all we could ask for. If you'd like to give something, a contribution towards our honeymoon would mean the world.</p>
       <svg style="width:52px;height:65px;margin:12px auto 20px;color:var(--ink)"><use href="#skis"/></svg>
       <a class="btn solid" href="https://monzo.me/elliecox17?h=4yabhn&amp;account_type=personal" target="_blank" rel="noopener">Contribute</a>
       <p class="gift-note">Opens Ellie's Monzo page. Pay by card, no Monzo account needed.</p>
@@ -1050,8 +1052,8 @@ dialog::backdrop{background:rgba(42,34,28,.55);-webkit-backdrop-filter:blur(2px)
       <details><summary>Can I bring a plus one or children?</summary><p>Your invitation lists everyone who's invited. If you're not sure, just ask, we'd rather you did.</p></details>
       <details><summary>What about dietary requirements?</summary><p>Tell us when you RSVP and we'll pass everything to the caterers.</p></details>
       <details><summary>Can I request a song?</summary><p>Yes, that's part of the RSVP. One song each that gets you on the dance floor. We can't promise the DJ will play all of them.</p></details>
-      <details><summary>Is there parking?</summary><p>Yes, free and on site. You can leave your car overnight.</p></details>
-      <details><summary>Will Poppy be there?</summary><p>Of course. She has a bow tie.</p></details>
+      <details><summary>Is there parking?</summary><p>Yes, free and on site. You can leave your car overnight, but please collect it by 10am the next morning.</p></details>
+      <details><summary>Will Poppy be there?</summary><p>Due to the money spent on make-up, Poppy will not be licking anyone today, but she will be here in decorative form.</p></details>
       <details><summary>Can I take photos?</summary><p>Please do, but we'd love the ceremony itself to be phone-free. We have a photographer for that bit and we'd rather see your faces than your screens.</p></details>
       <details><summary>When do I need to reply by?</summary><p>1 March 2027. You can change your answer any time before then by coming back to this page.</p></details>
     </div>
@@ -1211,8 +1213,9 @@ class Cableway{
 const hero=new Cableway($("#heroCable"),(w,h)=>w<=720
   ?{a:[-.12,.5],b:[1.12,.06],sag:.16}
   :{a:[-.08,.62],b:[1.08,.04],sag:.2});
-["","",""].forEach(()=>{const c=document.createElement("div");c.className="car";
-  c.innerHTML=`<div class="car-in"><div class="face gface"><svg viewBox="0 0 60 92"><use href="#gondola"/></svg></div></div>`;
+["","",""].forEach((_,i)=>{const c=document.createElement("div");c.className="car";
+  const poppy=i===1?`<span class="gwin"><img src="img/pug.webp" alt=""></span>`:"";   // mini Poppy rides the middle car
+  c.innerHTML=`<div class="car-in"><div class="face gface"><svg viewBox="0 0 60 92"><use href="#gondola"/></svg>${poppy}</div></div>`;
   hero.el.appendChild(c)});
 hero.cars=[...hero.el.querySelectorAll(".car")];
 
@@ -1340,9 +1343,21 @@ $("#photo").addEventListener("click",e=>{if(e.target.id==="photo")e.target.close
 const hp=$(".hero-pug"),woof=document.createElement("div");
 woof.className="woof";hp.parentNode.appendChild(woof);
 let taps=0,tapT;
-function say(t){woof.textContent=t;woof.classList.add("show");clearTimeout(say.t);say.t=setTimeout(()=>woof.classList.remove("show"),1100)}
+function say(t,ms=1100){woof.textContent=t;woof.classList.add("show");clearTimeout(say.t);say.t=setTimeout(()=>woof.classList.remove("show"),ms)}
+let poppyTapped=false;
+function nudge(){
+  if(poppyTapped) return;
+  const r=hp.getBoundingClientRect();
+  if(!document.hidden&&r.top<innerHeight&&r.bottom>0&&!hp.classList.contains("away")){
+    say("Tap me!",2200);
+    if(!REDUCE){hp.classList.remove("wiggle");void hp.offsetWidth;hp.classList.add("wiggle")}
+  }
+  setTimeout(nudge,7000);
+}
+setTimeout(nudge,2600);   // after she's peeked up
 hp.addEventListener("click",()=>{
   if(hp.classList.contains("away")) return;
+  poppyTapped=true;
   taps++;clearTimeout(tapT);tapT=setTimeout(()=>taps=0,1600);
   hp.classList.remove("wiggle");void hp.offsetWidth;hp.classList.add("wiggle");
   if(taps===1) say("Woof?");
@@ -1436,6 +1451,7 @@ const CREW={
   flowergirls:[
     {name:"Arlowe",role:"Flower girl",photo:"crew-arlowe.jpg",fact:""},
     {name:"Delilah",role:"Flower girl",photo:"crew-delilah.jpg",fact:""},
+    {name:"Riley",role:"Flower girl",photo:"crew-riley.jpg",fact:""},
   ],
 };
 const crewImg=c=>c.photo?"img/"+c.photo:"img/crew-placeholder.svg";
