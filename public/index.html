@@ -17,6 +17,7 @@
    - piste colours only ever appear on the timeline markers
 ------------------------------------------------------------ */
 :root{
+  --peg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 44'%3E%3Cdefs%3E%3ClinearGradient id='w' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%23b8916a'/%3E%3Cstop offset='.45' stop-color='%23e2c8a6'/%3E%3Cstop offset='1' stop-color='%23b08a63'/%3E%3C/linearGradient%3E%3ClinearGradient id='m' x1='0' x2='0' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%23d9dcde'/%3E%3Cstop offset='.5' stop-color='%238e9295'/%3E%3Cstop offset='1' stop-color='%23c7cacc'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M2 3 Q2 1 4 1 H6.6 V43 H4.2 Q2.6 43 2.6 41 L2.2 26 Q1.2 22 2.2 18 Z' fill='url(%23w)'/%3E%3Cpath d='M12 3 Q12 1 10 1 H7.4 V43 H9.8 Q11.4 43 11.4 41 L11.8 26 Q12.8 22 11.8 18 Z' fill='url(%23w)'/%3E%3Cpath d='M7 1 V43' stroke='%236e5238' stroke-width='.8'/%3E%3Cpath d='M3.6 5 Q3.9 12 3.5 17 M4.6 27 Q4.9 34 4.4 40 M10.3 6 Q10 12 10.4 16 M9.5 28 Q9.8 35 9.4 40' stroke='%238a6a4c' stroke-width='.35' fill='none' opacity='.7'/%3E%3Crect x='.6' y='19.2' width='12.8' height='5.4' rx='1.4' fill='url(%23m)' stroke='%235f6366' stroke-width='.4'/%3E%3Cpath d='M2.6 19.4 V24.4 M4.8 19.4 V24.4 M9.2 19.4 V24.4 M11.4 19.4 V24.4' stroke='%236b6f72' stroke-width='.35'/%3E%3Cpath d='M2.4 1.3 H11.6' stroke='%23fff' stroke-width='.5' opacity='.35'/%3E%3C/svg%3E");
   --paper:#f3eee4;
   --paper-deep:#eae2d2;
   --ink:#2a221c;
@@ -323,7 +324,7 @@ section{padding:88px 0}
 .pface figcaption{font-family:var(--script);font-size:calc(var(--pw)*.12);line-height:1;text-align:center;padding:calc(var(--pw)*.05) 4px calc(var(--pw)*.07);color:var(--ink)}
 /* wooden peg on the cable */
 .pface{pointer-events:auto;cursor:zoom-in}
-.pface::before{content:"";position:absolute;left:50%;top:-12px;width:9px;height:26px;margin-left:-4.5px;background:#b89a7c;border:1px solid var(--brown);border-radius:2px;z-index:1}
+.pface::before{content:"";position:absolute;left:50%;top:-15px;width:10px;height:32px;margin-left:-5px;background:var(--peg) center/contain no-repeat;filter:drop-shadow(0 1.5px 1px rgba(42,34,28,.35));z-index:1}
 .ride-hint{position:absolute;left:0;right:0;bottom:3%;text-align:center;transition:opacity .4s}
 .ride-hint svg{width:18px;height:28px;margin:6px auto 0;color:var(--ink-faint);animation:nudge 1.6s ease-in-out infinite}
 @keyframes nudge{50%{transform:translateY(5px)}}
@@ -475,7 +476,7 @@ dialog::backdrop{background:rgba(42,34,28,.55);-webkit-backdrop-filter:blur(2px)
 .photo-dlg{border:0;padding:22px 16px;background:transparent;overflow:auto;max-width:none;max-height:100svh;width:fit-content;height:fit-content;box-shadow:none;border-radius:0;scrollbar-width:none}
 .photo-dlg::backdrop{background:rgba(42,34,28,.6);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
 .pbig{position:relative;width:min(440px,84vw,58svh);margin:0;background:#fffdf8;padding:20px 20px 2px;box-shadow:0 24px 50px rgba(0,0,0,.35);rotate:-1.5deg}
-.pbig::before{content:"";position:absolute;left:50%;top:-18px;width:12px;height:36px;margin-left:-6px;background:#b89a7c;border:1px solid var(--brown);border-radius:2px}
+.pbig::before{content:"";position:absolute;left:50%;top:-22px;width:14px;height:44px;margin-left:-7px;background:var(--peg) center/contain no-repeat;filter:drop-shadow(0 1.5px 1px rgba(42,34,28,.35));z-index:2}
 .pbig img{display:block;width:100%;aspect-ratio:1;object-fit:cover;background:var(--sand)}
 .pbig figcaption{font-family:var(--script);font-size:44px;line-height:1;text-align:center;padding:16px 0 6px}
 .pbig p{font-size:17px;color:var(--ink-soft);text-align:center;margin:0 6px 20px;line-height:1.5}
@@ -487,9 +488,9 @@ dialog::backdrop{background:rgba(42,34,28,.55);-webkit-backdrop-filter:blur(2px)
 
 /* paw prints down the margin */
 .pawtrail{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-.pawtrail svg{position:absolute;width:15px;height:15px;color:var(--ink);opacity:0;transform:var(--t) scale(.3);transition:opacity .5s,transform .5s cubic-bezier(.3,1.6,.5,1)}
-.pawtrail svg.on{opacity:.3;transform:var(--t) scale(1)}
-@media(max-width:720px){.pawtrail svg{width:11px;height:11px}}
+.pawtrail svg{position:absolute;width:24px;height:24px;color:var(--brown);opacity:0;transform:var(--t) scale(.3);transition:opacity .5s,transform .5s cubic-bezier(.3,1.6,.5,1)}
+.pawtrail svg.on{opacity:.72;transform:var(--t) scale(1)}
+@media(max-width:720px){.pawtrail svg{width:16px;height:16px}.pawtrail svg.on{opacity:.6}}
 
 /* ============ Meet the bridal party ============
    One idea for everyone: pegged polaroids that develop as they scroll in,
@@ -510,7 +511,7 @@ dialog::backdrop{background:rgba(42,34,28,.55);-webkit-backdrop-filter:blur(2px)
 @media(hover:hover){.mp:hover{rotate:0deg;transform:translateY(-5px)}}
 .mp:focus-visible{rotate:0deg;transform:translateY(-5px)}
 .mp:focus-visible{outline:2px dashed var(--brown);outline-offset:6px}
-.mp::before{content:"";position:absolute;left:50%;top:-14px;width:10px;height:28px;margin-left:-5px;background:#b89a7c;border:1px solid var(--brown);border-radius:2px;z-index:2}
+.mp::before{content:"";position:absolute;left:50%;top:-17px;width:11px;height:35px;margin-left:-5.5px;background:var(--peg) center/contain no-repeat;filter:drop-shadow(0 1.5px 1px rgba(42,34,28,.35));z-index:2}
 .mp-card{display:block;background:#fffdf8;padding:7% 7% 0;box-shadow:0 10px 22px rgba(42,34,28,.16),0 1px 2px rgba(42,34,28,.2)}
 .mp-photo{position:relative;display:block;aspect-ratio:1;overflow:hidden;background:#3b3430}
 .mp-photo img{display:block;width:100%;height:100%;object-fit:cover;filter:saturate(0) brightness(.35) contrast(.5) blur(1.5px);transition:filter 2.8s ease}
@@ -542,7 +543,7 @@ dialog::backdrop{background:rgba(42,34,28,.55);-webkit-backdrop-filter:blur(2px)
 .fc-role{font-family:var(--sans);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-faint);text-align:center;padding:4px 0 18px}
 .fc-back p{font-size:17px;line-height:1.55;color:var(--ink-soft);margin:0;text-align:center}
 .fc-turn{margin-top:auto;padding-top:16px;font-family:var(--sans);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);text-align:center}
-.fc::before{content:"";position:absolute;left:50%;top:-16px;width:12px;height:34px;margin-left:-6px;background:#b89a7c;border:1px solid var(--brown);border-radius:2px;z-index:3}
+.fc::before{content:"";position:absolute;left:50%;top:-22px;width:14px;height:44px;margin-left:-7px;background:var(--peg) center/contain no-repeat;filter:drop-shadow(0 1.5px 1px rgba(42,34,28,.35));z-index:3}
 @media(max-width:560px){.fc-back p{font-size:15.5px}.fc-back{padding:24px 18px 18px}}
 
 /* phones: lift the smallest labels to a readable size */
@@ -1379,12 +1380,12 @@ function buildPaws(){
   pawIO&&pawIO.disconnect();pawTrail.innerHTML="";
   const main=$("main"),st=$("#story"),W=innerWidth,mobile=W<=720;
   const skipA=st.offsetTop-60,skipB=st.offsetTop+st.offsetHeight+40;   // not inside the pinned story
-  const gx=mobile?W-13:Math.max(14,(W-1100)/2-44),step=mobile?92:116;
+  const gx=mobile?W-19:Math.max(14,(W-1100)/2-44),step=mobile?92:116;   // phones: inside the 20px side margin
   pawIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("on");pawIO.unobserve(e.target)}}),{rootMargin:"0px 0px -22% 0px"});
   let html="",i=0;
   for(let y=$("#hero").offsetHeight+80;y<main.offsetHeight-60;y+=step,i++){
     if(y>skipA&&y<skipB) continue;
-    const side=i%2?1:-1,x=gx+side*(mobile?4:9)+Math.sin(i/2.3)*(mobile?3:14),rot=180+side*14+Math.cos(i/2.3)*12;
+    const side=i%2?1:-1,x=gx+side*(mobile?2:9)+Math.sin(i/2.3)*(mobile?1.5:14),rot=180+side*14+Math.cos(i/2.3)*12;
     html+=`<svg style="left:${x.toFixed(1)}px;top:${y}px;--t:rotate(${rot.toFixed(1)}deg)"><use href="#paw"/></svg>`;
   }
   pawTrail.innerHTML=html;
