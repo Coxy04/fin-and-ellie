@@ -35,12 +35,12 @@
   color-scheme:light;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:var(--nav)}
+html{scroll-behavior:smooth;scroll-padding-top:var(--nav);overflow-x:clip}
 body{
   margin:0;background:var(--paper);color:var(--ink);
   font:400 19px/1.55 var(--serif);
   -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
+  overflow-x:hidden;overflow-x:clip;
 }
 /* paper grain */
 body::before{
@@ -91,7 +91,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--brown);box-shadow:0 1
    Nav
 ------------------------------------------------------------ */
 nav{
-  position:sticky;top:0;z-index:20;background:rgba(243,238,228,.92);backdrop-filter:blur(6px);
+  position:sticky;top:0;z-index:20;background:rgba(243,238,228,.92);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
   border-bottom:1px solid var(--sand);
 }
 .navin{max-width:1100px;margin:0 auto;padding:0 20px;height:var(--nav);display:flex;align-items:center;gap:20px}
@@ -101,7 +101,7 @@ nav{
 .links a{font-family:var(--sans);font-size:11px;letter-spacing:.24em;text-transform:uppercase;white-space:nowrap;border:0;padding:4px 0;border-bottom:1.5px solid transparent;color:var(--ink-soft)}
 .links a.on,.links a:hover{color:var(--ink);border-bottom-color:var(--ink)}
 .links a.cta{color:var(--ink);font-weight:600}
-@media(max-width:720px){.navin{gap:12px}.links{gap:16px}.links a{letter-spacing:.18em}.links a.wide{display:none}.mono{font-size:26px}}
+@media(max-width:720px){.navin{gap:12px}.links{gap:14px}.links a{letter-spacing:.16em;padding:15px 0 13px}.links a.wide{display:none}.mono{font-size:26px;padding:12px 4px 8px 0}}
 
 /* ------------------------------------------------------------
    Layout
@@ -241,14 +241,14 @@ section{padding:88px 0}
 .env-flap{position:absolute;left:0;right:0;top:0;height:64%;z-index:4;transform-origin:50% 0;
   transform:perspective(1200px) rotateX(0deg);transition:transform .7s cubic-bezier(.4,.1,.3,1),z-index 0s .32s}
 .env-flap svg{width:100%;height:100%;overflow:visible}
-.env:not(.open):hover .env-flap{transform:perspective(1200px) rotateX(16deg)}
+@media(hover:hover){.env:not(.open):hover .env-flap{transform:perspective(1200px) rotateX(16deg)}}
 .env.open .env-flap{transform:perspective(1200px) rotateX(180deg);z-index:1}
 .seal{position:absolute;left:50%;top:64%;width:17%;aspect-ratio:1;margin:-8.5% 0 0 -8.5%;z-index:5;
   border-radius:47% 53% 51% 49%/52% 48% 52% 48%;background:radial-gradient(circle at 35% 30%,#7a5640,var(--brown) 55%,#33231a);
   box-shadow:0 3px 6px rgba(42,34,28,.35),inset 0 0 0 4px rgba(0,0,0,.12),inset 0 0 0 7px rgba(255,255,255,.06);
   display:flex;align-items:center;justify-content:center;color:#e9dccb;transition:transform .45s cubic-bezier(.5,-0.4,.7,1),opacity .35s}
 .seal svg{width:46%;height:46%}
-.env:not(.open):hover .seal{transform:scale(1.06) rotate(-6deg)}
+@media(hover:hover){.env:not(.open):hover .seal{transform:scale(1.06) rotate(-6deg)}}
 .env.open .seal{transform:translateY(30%) scale(.3) rotate(-60deg);opacity:0}
 
 /* ------------------------------------------------------------
@@ -353,7 +353,7 @@ section{padding:88px 0}
 .sk .sk-note{font-family:var(--sans);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);margin-top:10px}
 .sk-div{position:relative;z-index:1;width:90px;height:20px;margin:26px auto 22px;color:var(--ink)}
 .sk-binding{position:absolute;left:22%;bottom:30px;width:56%;height:auto;z-index:1;color:var(--ink)}
-.ski-snow{position:absolute;left:-12%;bottom:0;width:124%;height:56px;z-index:2;color:var(--ink)}
+.ski-snow{position:absolute;left:-8%;bottom:0;width:116%;height:56px;z-index:2;color:var(--ink)}
 @media(max-width:640px){
   .skis{flex-direction:column;align-items:center;gap:36px}
   .ski{width:min(340px,100%)}.ski:last-child{margin-top:0}
@@ -415,7 +415,7 @@ dialog{
 }
 dialog[open]{animation:pop .35s cubic-bezier(.2,.9,.3,1.1)}
 @keyframes pop{from{opacity:0;transform:translateY(16px) scale(.97)}}
-dialog::backdrop{background:rgba(42,34,28,.55);backdrop-filter:blur(2px)}
+dialog::backdrop{background:rgba(42,34,28,.55);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
 .mhead{display:flex;align-items:center;justify-content:space-between;padding:22px 26px 14px;border-bottom:1px solid var(--sand)}
 .mhead .script{font-size:44px;color:var(--brown)}
 .mclose{background:none;border:0;cursor:pointer;color:var(--ink);padding:6px;border-radius:50%}
@@ -473,7 +473,7 @@ dialog::backdrop{background:rgba(42,34,28,.55);backdrop-filter:blur(2px)}
 
 /* polaroid lightbox */
 .photo-dlg{border:0;padding:22px 16px;background:transparent;overflow:auto;max-width:none;max-height:100svh;width:fit-content;height:fit-content;box-shadow:none;border-radius:0;scrollbar-width:none}
-.photo-dlg::backdrop{background:rgba(42,34,28,.6);backdrop-filter:blur(3px)}
+.photo-dlg::backdrop{background:rgba(42,34,28,.6);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
 .pbig{position:relative;width:min(440px,84vw,58svh);margin:0;background:#fffdf8;padding:20px 20px 2px;box-shadow:0 24px 50px rgba(0,0,0,.35);rotate:-1.5deg}
 .pbig::before{content:"";position:absolute;left:50%;top:-18px;width:12px;height:36px;margin-left:-6px;background:#b89a7c;border:1px solid var(--brown);border-radius:2px}
 .pbig img{display:block;width:100%;aspect-ratio:1;object-fit:cover;background:var(--sand)}
@@ -491,78 +491,67 @@ dialog::backdrop{background:rgba(42,34,28,.55);backdrop-filter:blur(2px)}
 .pawtrail svg.on{opacity:.3;transform:var(--t) scale(1)}
 @media(max-width:720px){.pawtrail svg{width:11px;height:11px}}
 
-/* ============ The crew ============ */
+/* ============ Meet the bridal party ============
+   One idea for everyone: pegged polaroids that develop as they scroll in,
+   and turn over (big, centre screen) when tapped. */
 #crew{padding-bottom:40px}
-.crew-block{margin:0 auto 90px}
-.crew-block:last-child{margin-bottom:0}
-.crew-head{text-align:center;margin-bottom:26px}
+.crew-block{margin:0 auto 84px}
+.crew-block:last-of-type{margin-bottom:30px}
+.crew-head{text-align:center;margin-bottom:30px}
 .crew-head .script{font-size:clamp(44px,6vw,58px);color:var(--brown)}
 .crew-head .eyebrow{margin-top:6px}
-.crew-hint{text-align:center;font-size:15px;font-style:italic;color:var(--ink-faint);margin:14px 0 0}
+.crew-hint{text-align:center;font-size:15px;font-style:italic;color:var(--ink-faint);margin:0}
+.crew-row{position:relative;display:flex;flex-wrap:wrap;justify-content:center;gap:34px clamp(16px,2.2vw,30px);padding-top:14px;--w:clamp(140px,12.4vw,178px)}
+.crew-row.six{--w:clamp(126px,10.2vw,150px);gap:34px clamp(14px,1.9vw,26px)}
+.crew-row.sm{--w:clamp(132px,13vw,156px)}
+/* the string they hang from (one row on wide screens) */
+.crew-row::before{content:"";position:absolute;left:-3%;right:-3%;top:-6px;height:30px;border-bottom:1.4px solid var(--ink);border-radius:0 0 50% 50%/0 0 100% 100%;opacity:.55;pointer-events:none}
+.mp{position:relative;width:var(--w);padding:0;border:0;background:none;font:inherit;color:inherit;cursor:pointer;rotate:var(--r);transition:rotate .35s,transform .35s;-webkit-tap-highlight-color:transparent}
+@media(hover:hover){.mp:hover{rotate:0deg;transform:translateY(-5px)}}
+.mp:focus-visible{rotate:0deg;transform:translateY(-5px)}
+.mp:focus-visible{outline:2px dashed var(--brown);outline-offset:6px}
+.mp::before{content:"";position:absolute;left:50%;top:-14px;width:10px;height:28px;margin-left:-5px;background:#b89a7c;border:1px solid var(--brown);border-radius:2px;z-index:2}
+.mp-card{display:block;background:#fffdf8;padding:7% 7% 0;box-shadow:0 10px 22px rgba(42,34,28,.16),0 1px 2px rgba(42,34,28,.2)}
+.mp-photo{position:relative;display:block;aspect-ratio:1;overflow:hidden;background:#3b3430}
+.mp-photo img{display:block;width:100%;height:100%;object-fit:cover;filter:saturate(0) brightness(.35) contrast(.5) blur(1.5px);transition:filter 2.8s ease}
+.mp-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,#4a4038,#2f2a27);opacity:1;transition:opacity 2.6s ease}
+.mp.dev .mp-photo img{filter:none}
+.mp.dev .mp-photo::after{opacity:0}
+.mp-name{display:block;font-family:var(--script);font-size:calc(var(--w)*.17);line-height:1;padding:calc(var(--w)*.06) 4px 0;text-align:center;min-height:1em}
+.mp-role{display:flex;align-items:center;justify-content:center;gap:6px;font-family:var(--sans);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);padding:4px 0 calc(var(--w)*.07)}
+/* small piste-grade mark for the groomsmen */
+.gd{display:inline-flex;gap:2px}.gd i{display:block;width:7px;height:7px}
+.gd.green i,.gd.red i{border-radius:50%}.gd.green i{background:var(--green)}.gd.red i{background:var(--red)}
+.gd.blue i{background:var(--blue)}.gd.black i,.gd.double i{background:var(--black);transform:rotate(45deg) scale(.8)}
+@media(max-width:900px){.crew-row::before{display:none}}
+@media(max-width:560px){.crew-row,.crew-row.sm{--w:calc(50vw - 40px);gap:30px 22px}}
 
-/* groomsmen: piste signposts, planted once when they come into view */
-.posts{display:flex;justify-content:center;align-items:flex-end;flex-wrap:wrap;gap:34px clamp(14px,3.5vw,44px)}
-.post{position:relative;width:176px;display:flex;flex-direction:column;align-items:center;cursor:zoom-in;--h:200px}
-.post:nth-child(2n){--h:232px}.post:nth-child(3n){--h:214px}
-.sign{position:relative;z-index:3;width:176px;padding:11px 30px 9px 14px;display:flex;align-items:center;gap:10px;text-align:left;transition:rotate .3s}
-.sign.l{padding:11px 14px 9px 30px}
-.sign svg.bg{position:absolute;inset:0;width:100%;height:100%;z-index:-1;overflow:visible}
-.sign b{display:block;font-family:var(--sans);font-weight:600;font-size:12px;letter-spacing:.18em;text-transform:uppercase;line-height:1.25}
-.sign i{display:block;font-style:normal;font-family:var(--script);font-size:22px;line-height:1;color:var(--brown);margin-top:2px}
-.grade{flex:none;display:flex;gap:2px}
-.grade span{display:block;width:15px;height:15px}
-.g-green span{border-radius:50%;background:var(--green)}
-.g-blue span{background:var(--blue)}
-.g-red span{border-radius:50%;background:var(--red)}
-.g-black span,.g-double span{background:var(--black);transform:rotate(45deg) scale(.82)}
-.pole{position:relative;width:15px;height:var(--h);margin-top:-4px;border:1.5px solid var(--ink);border-top:0;
-  background:repeating-linear-gradient(180deg,transparent 0 22px,rgba(42,34,28,.18) 22px 23px),linear-gradient(90deg,#8d6c50,#c2a486 45%,#8d6c50)}
-.post .ppol{position:absolute;z-index:2;top:62px;left:50%;width:128px;margin:0 0 0 -64px;background:#fffdf8;padding:8px 8px 0;
-  box-shadow:0 8px 16px rgba(42,34,28,.18);rotate:var(--r,-3deg);transition:rotate .3s,transform .3s}
-.post:nth-child(2n) .ppol{--r:2.5deg}
-.ppol::before{content:"";position:absolute;left:50%;top:5px;width:7px;height:7px;margin-left:-3.5px;border-radius:50%;background:#6d6157;box-shadow:inset 1px 1px 1px rgba(255,255,255,.4)}
-.ppol img{display:block;width:100%;aspect-ratio:1;object-fit:cover;background:var(--sand)}
-.ppol figcaption{font-family:var(--sans);font-size:9px;letter-spacing:.18em;text-transform:uppercase;text-align:center;padding:7px 0 8px;color:var(--ink-soft)}
-.mound{width:150px;height:30px;margin-top:-12px;position:relative;z-index:1}
-.post:hover .sign{rotate:-3deg}.post:hover .ppol{transform:translateY(-3px)}
-.posts .post{opacity:0;transform:translateY(-40px)}
-.posts.in .post{animation:plant .7s cubic-bezier(.3,1.5,.5,1) both;animation-delay:calc(var(--i)*.13s)}
-@keyframes plant{0%{opacity:0;transform:translateY(-40px)}60%{opacity:1}100%{opacity:1;transform:none}}
+/* the turned-over card */
+.flip-dlg{border:0;padding:24px 16px;background:transparent;overflow:auto;max-width:none;max-height:100svh;width:fit-content;height:fit-content;box-shadow:none;border-radius:0;scrollbar-width:none}
+.flip-dlg::backdrop{background:rgba(42,34,28,.6);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.fc{position:relative;width:min(380px,84vw);perspective:1600px}
+.fc-in{position:relative;display:grid;transform-style:preserve-3d;transition:transform .85s cubic-bezier(.3,.9,.3,1);cursor:pointer}
+.fc.flipped .fc-in{transform:rotateY(180deg)}
+.fc-front,.fc-back{grid-area:1/1;background:#fffdf8;box-shadow:0 24px 50px rgba(0,0,0,.35);backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.fc-front{padding:18px 18px 0}
+.fc-front img{display:block;width:100%;aspect-ratio:1;object-fit:cover;background:var(--sand)}
+.fc-back{transform:rotateY(180deg);padding:30px 26px 22px;display:flex;flex-direction:column;overflow:auto;
+  background:repeating-linear-gradient(180deg,transparent 0 29px,rgba(166,141,120,.18) 29px 30px),#fffdf8}
+.fc-name{font-family:var(--script);font-size:44px;line-height:1;text-align:center;padding-top:14px}
+.fc-back .fc-name{padding-top:0}
+.fc-role{font-family:var(--sans);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-faint);text-align:center;padding:4px 0 18px}
+.fc-back p{font-size:17px;line-height:1.55;color:var(--ink-soft);margin:0;text-align:center}
+.fc-turn{margin-top:auto;padding-top:16px;font-family:var(--sans);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);text-align:center}
+.fc::before{content:"";position:absolute;left:50%;top:-16px;width:12px;height:34px;margin-left:-6px;background:#b89a7c;border:1px solid var(--brown);border-radius:2px;z-index:3}
+@media(max-width:560px){.fc-back p{font-size:15.5px}.fc-back{padding:24px 18px 18px}}
 
-/* bridesmaids: a chairlift that moves as you scroll past (not pinned) */
-.chair-stage{position:relative;height:clamp(400px,46vw,500px)}
-.chair-stage .cableway{inset:0;--cw:clamp(118px,13vw,168px)}
-.cface{width:var(--cw);transform:translate(-50%,-2.4%);cursor:zoom-in;pointer-events:auto}
-.chair{position:relative;width:100%;aspect-ratio:160/190}
-.chair > svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;color:var(--ink)}
-.chair .cpol{position:absolute;left:24%;width:52%;bottom:23%;margin:0;background:#fffdf8;padding:5% 5% 0;box-shadow:0 6px 12px rgba(42,34,28,.2);rotate:-2deg}
-.chair .cpol img{display:block;width:100%;aspect-ratio:1;object-fit:cover;background:var(--sand)}
-.chair .cpol figcaption{height:calc(var(--cw)*.09)}
-.chair .cbar{position:absolute;inset:0;z-index:2;transition:none}
-.chair .cbar svg{width:100%;height:100%;overflow:visible;color:var(--ink)}
-.ctag{position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:4px;text-align:center;white-space:nowrap;
-  background:var(--cream);border:1px solid var(--ink-faint);border-radius:4px;padding:5px 9px 3px}
-.ctag::before{content:"";position:absolute;left:50%;bottom:100%;height:6px;border-left:1px solid var(--ink-faint)}
-.ctag b{display:block;font-family:var(--script);font-weight:400;font-size:calc(var(--cw)*.15);line-height:1;color:var(--brown)}
-.ctag i{display:block;font-style:normal;font-family:var(--sans);font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint)}
-
-/* flower girls: paper snowflakes that unfold into a round photo */
-@property --a{syntax:"<angle>";inherits:false;initial-value:0deg}
-.flakes{display:flex;justify-content:center;flex-wrap:wrap;gap:30px clamp(26px,6vw,70px)}
-.fl{text-align:center;cursor:zoom-in;width:clamp(180px,24vw,240px)}
-.fl-paper{position:relative;width:100%;aspect-ratio:1;--a:0deg;filter:drop-shadow(0 6px 10px rgba(42,34,28,.18));
-  -webkit-mask:conic-gradient(from -30deg,#000 var(--a),transparent 0);mask:conic-gradient(from -30deg,#000 var(--a),transparent 0)}
-.fl-paper svg{position:absolute;inset:0;width:100%;height:100%}
-.fl-paper img{position:absolute;left:27%;top:27%;width:46%;height:46%;border-radius:50%;object-fit:cover;border:1.5px solid var(--ink);background:var(--sand)}
-.flakes.in .fl-paper{animation:unfold 1.5s cubic-bezier(.3,.8,.3,1) both;animation-delay:calc(var(--i)*.4s)}
-@keyframes unfold{0%{--a:60deg;transform:rotate(-150deg) scale(.55)}55%{--a:360deg}100%{--a:360deg;transform:none}}
-.fl b{display:block;font-family:var(--script);font-weight:400;font-size:34px;line-height:1;color:var(--brown);margin-top:12px}
-.fl i{display:block;font-style:normal;font-family:var(--sans);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);margin-top:4px}
-.fl:hover .fl-paper{rotate:8deg;transition:rotate .5s}
-
-@media(max-width:720px){
-  .posts{gap:30px 10px}.post{width:160px}.sign{width:160px}.post .ppol{width:116px;margin-left:-58px}
-  .chair-stage{height:440px}.chair-stage .cableway{--cw:128px}
+/* phones: lift the smallest labels to a readable size */
+@media(max-width:560px){
+  .t-top,.t-unit i,.t-foot,.t-vert{font-size:10px}
+  .mp-role{font-size:10px}
+  .sk .sk-note,.env-card .go{font-size:11px}
+  .key{font-size:11px}
+  .barno,.fc-turn{font-size:10px}
 }
 
 /* confirmation lift pass */
@@ -588,8 +577,8 @@ dialog::backdrop{background:rgba(42,34,28,.55);backdrop-filter:blur(2px)}
   .vinyl .spin,.d b,.hero-pug.wiggle{animation:none}
   .ticket .t-hole{transform:none;animation:none}
   .pawtrail svg{transition:none}
-  .posts .post,.posts.in .post{opacity:1;transform:none;animation:none}
-  .fl-paper,.flakes.in .fl-paper{--a:360deg;animation:none;-webkit-mask:none;mask:none}
+  .mp-photo img,.mp-photo::after{transition:none}
+  .fc-in{transition:none}
 }
 </style>
 </head>
@@ -731,40 +720,6 @@ dialog::backdrop{background:rgba(42,34,28,.55);backdrop-filter:blur(2px)}
       <path d="M16 8 C7 8 4 2 9 1 M16 8 H118"/>
       <path d="M10 18 C1 18 -1 12 3 11 M10 18 H112"/>
     </g>
-  </symbol>
-
-  <!-- chairlift chair, front view. The grip sits on the cable at y~4.5 -->
-  <symbol id="chairlift" viewBox="0 0 160 190">
-    <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="70" y="0" width="20" height="9" rx="4.5" fill="#fbf8f1"/>
-      <path d="M80 9 V56 M28 62 C28 57 31 56 36 56 H124 C129 56 132 57 132 62 V150 M28 62 V150"/>
-      <rect x="22" y="84" width="116" height="52" rx="7" fill="#fbf8f1"/>
-      <path d="M30 98 H130 M30 110 H130 M30 122 H130" opacity=".35"/>
-      <path d="M14 146 H146 V156 C146 160 143 162 139 162 H21 C17 162 14 160 14 156 Z" fill="#c2a486"/>
-      <path d="M22 151 H138" opacity=".35"/>
-    </g>
-  </symbol>
-  <!-- the safety bar and footrest, dropped in front of the passenger -->
-  <symbol id="chairbar" viewBox="0 0 160 190">
-    <g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M36 118 H124"/>
-      <path d="M58 118 V176 M102 118 V176" stroke-width="1.8"/>
-      <path d="M46 176 H114" stroke-width="3"/>
-    </g>
-  </symbol>
-  <!-- paper snowflake: a disc with six-fold cut-outs, photo sits in the middle -->
-  <symbol id="paperflake" viewBox="-100 -100 200 200">
-    <circle r="96" fill="#fffdf8" stroke="#2a221c" stroke-width=".7" stroke-opacity=".45"/>
-    <g id="flakecut" fill="#f3eee4" stroke="#2a221c" stroke-width=".6" stroke-opacity=".4">
-      <path d="M0 -94 C7 -86 7 -78 0 -70 C-7 -78 -7 -86 0 -94 Z"/>
-      <path d="M0 -64 L6 -56 L0 -48 L-6 -56 Z"/>
-      <circle cx="13" cy="-70" r="3.2"/><circle cx="-13" cy="-70" r="3.2"/>
-      <path d="M48 -83 L41 -71 L55 -71 Z" transform="rotate(0)"/>
-      <circle cx="0" cy="-99" r="5"/>
-      <path d="M21 -85 Q30 -88 34 -80 Q26 -78 21 -85 Z"/><path d="M-21 -85 Q-30 -88 -34 -80 Q-26 -78 -21 -85 Z"/>
-    </g>
-    <use href="#flakecut" transform="rotate(60)"/><use href="#flakecut" transform="rotate(120)"/>
-    <use href="#flakecut" transform="rotate(180)"/><use href="#flakecut" transform="rotate(240)"/><use href="#flakecut" transform="rotate(300)"/>
   </symbol>
 
   <!-- mountain range used along the bottom of scenes -->
@@ -912,7 +867,7 @@ dialog::backdrop{background:rgba(42,34,28,.55);backdrop-filter:blur(2px)}
 </section>
 
 <!-- ============================================================ MEET THE BRIDAL PARTY
-     Built from the CREW list in the script: edit names, roles, photos and one-liners there. -->
+     Built from the CREW list in the script: edit names, roles, photos and words there. -->
 <section id="crew">
   <div class="wrap">
     <div class="shead rv">
@@ -920,24 +875,10 @@ dialog::backdrop{background:rgba(42,34,28,.55);backdrop-filter:blur(2px)}
       <h2 class="script">Meet the bridal party</h2>
       <svg class="ridge" viewBox="0 0 120 26"><use href="#ridge"/></svg>
     </div>
-
-    <div class="crew-block">
-      <div class="crew-head rv"><div class="script">The groomsmen</div><div class="eyebrow">Fin's crew, graded by difficulty</div></div>
-      <div class="posts" id="posts"></div>
-    </div>
-
-    <div class="crew-block">
-      <div class="crew-head rv"><div class="script">The bridesmaids</div><div class="eyebrow">Ellie's crew, on the lift</div></div>
-      <div class="chair-stage">
-        <div class="cableway" id="chairCable"><svg filter="url(#ink)" aria-hidden="true"><path class="rope" fill="none" stroke="currentColor" stroke-width="1.6"/><path class="rope2" fill="none" stroke="currentColor" stroke-width="1" opacity=".45"/></svg></div>
-      </div>
-    </div>
-
-    <div class="crew-block">
-      <div class="crew-head rv"><div class="script">The flower girls</div><div class="eyebrow">Our littlest snowflakes</div></div>
-      <div class="flakes" id="flakes"></div>
-      <p class="crew-hint rv">Tap anyone to say hello.</p>
-    </div>
+    <div class="crew-block"><div class="crew-head rv"><div class="script">The groomsmen</div><div class="eyebrow">Fin's crew</div></div><div class="crew-row" id="rowGroom"></div></div>
+    <div class="crew-block"><div class="crew-head rv"><div class="script">The bridesmaids</div><div class="eyebrow">Ellie's crew</div></div><div class="crew-row six" id="rowBride"></div></div>
+    <div class="crew-block"><div class="crew-head rv"><div class="script">The flower girls</div><div class="eyebrow">Our littlest guests</div></div><div class="crew-row sm" id="rowFlower"></div></div>
+    <p class="crew-hint rv">Tap a photo to turn it over.</p>
   </div>
 </section>
 
@@ -1140,6 +1081,17 @@ dialog::backdrop{background:rgba(42,34,28,.55);backdrop-filter:blur(2px)}
   <div class="mbody" id="mbody"></div>
 </dialog>
 
+<!-- bridal party: a polaroid lifted out and turned over -->
+<dialog id="flipcard" class="flip-dlg" aria-label="About">
+  <div class="fc">
+    <button class="pclose" aria-label="Close" onclick="$('#flipcard').close()"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 4l12 12M16 4L4 16"/></svg></button>
+    <div class="fc-in" role="button" tabindex="0" aria-label="Turn over">
+      <div class="fc-front"><img alt=""><div class="fc-name"></div><div class="fc-role"></div></div>
+      <div class="fc-back"><div class="fc-name"></div><div class="fc-role"></div><p></p><div class="fc-turn">Tap to turn over</div></div>
+    </div>
+  </div>
+</dialog>
+
 <!-- polaroid, opened up -->
 <dialog id="photo" class="photo-dlg" aria-label="Photo">
   <figure class="pbig">
@@ -1309,7 +1261,6 @@ function frame(now){
   $("#story .ride-pin").dataset.s=p>.78?3:p>.6?2:1;
   if(pendingOpen&&q>.97){pendingOpen=false;openEnvelope()}
   skiPiste();
-  rideChairs(now);
   if(!REDUCE) requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);
@@ -1474,74 +1425,56 @@ const CREW={
     {name:"Nathan",role:"Groomsman",grade:"black",photo:"crew-nathan.jpg",fact:"As designer of the website, I need to say some nice things… Eldest brother of the bride and soon-to-be eldest brother-in-law. There aren't many holidays we go on that don't involve Nath, whether it's the four Glastonbury Festivals we've shared, many ski trips or even Norway. Another good brother to adopt, always one for having the best time, pushing us to face our fear of public transport, trying as many local beers and foods as possible, and holding the spot of second-best skier to El. Again, the sole downside… Leeds supporter."},
   ],
   bridesmaids:[
-    {name:"Name to come",role:"Bridesmaid",photo:"crew-bridesmaid-1.jpg",fact:"A few words to come."},
-    {name:"Name to come",role:"Bridesmaid",photo:"crew-bridesmaid-2.jpg",fact:"A few words to come."},
-    {name:"Name to come",role:"Bridesmaid",photo:"crew-bridesmaid-3.jpg",fact:"A few words to come."},
-    {name:"Name to come",role:"Bridesmaid",photo:"crew-bridesmaid-4.jpg",fact:"A few words to come."},
-    {name:"Name to come",role:"Bridesmaid",photo:"crew-bridesmaid-5.jpg",fact:"A few words to come."},
-    {name:"Name to come",role:"Bridesmaid",photo:"crew-bridesmaid-6.jpg",fact:"A few words to come."},
+    {name:"",role:"Bridesmaid",photo:"crew-bridesmaid-1.jpg",fact:""},
+    {name:"",role:"Bridesmaid",photo:"crew-bridesmaid-2.jpg",fact:""},
+    {name:"",role:"Bridesmaid",photo:"crew-bridesmaid-3.jpg",fact:""},
+    {name:"",role:"Bridesmaid",photo:"crew-bridesmaid-4.jpg",fact:""},
+    {name:"",role:"Bridesmaid",photo:"crew-bridesmaid-5.jpg",fact:""},
+    {name:"",role:"Bridesmaid",photo:"crew-bridesmaid-6.jpg",fact:""},
   ],
   flowergirls:[
-    {name:"Arlowe",role:"Flower girl",photo:"crew-arlowe.jpg",fact:"A few words to come."},
-    {name:"Delilah",role:"Flower girl",photo:"crew-delilah.jpg",fact:"A few words to come."},
+    {name:"Arlowe",role:"Flower girl",photo:"crew-arlowe.jpg",fact:""},
+    {name:"Delilah",role:"Flower girl",photo:"crew-delilah.jpg",fact:""},
   ],
 };
 const crewImg=c=>c.photo?"img/"+c.photo:"img/crew-placeholder.svg";
-const crewOpen=(el,c)=>openPhoto(el,{src:crewImg(c),alt:c.photo?c.name:"Photo to come",cap:c.name,story:(c.fact||""),role:c.role});
-
-/* groomsmen: signposts */
-$("#posts").innerHTML=CREW.groomsmen.map((c,i)=>{
-  const left=i%2===1,g=c.grade||"blue",n=g==="double"?2:1;
-  const shape=left?"M14 1 H159 V47 H14 L1 24 Z":"M1 1 H146 L159 24 L146 47 H1 Z";
-  return `<div class="post" style="--i:${i}" data-i="${i}" role="button" tabindex="0" aria-label="${esc(c.role)}: ${esc(c.name)}">
-    <div class="sign ${left?"l":""}"><svg class="bg" viewBox="0 0 160 48" preserveAspectRatio="none"><path d="${shape}" fill="#fbf8f1" stroke="#2a221c" stroke-width="1.5" vector-effect="non-scaling-stroke"/></svg>
-      <span class="grade g-${g}">${"<span></span>".repeat(n)}</span><span><b>${esc(c.role)}</b><i>${esc(c.name)}</i></span></div>
-    <div class="pole"></div>
-    <figure class="ppol"><img src="${crewImg(c)}" alt="" loading="lazy"><figcaption>${esc(c.role)}</figcaption></figure>
-    <svg class="mound" viewBox="0 0 150 30" preserveAspectRatio="none"><path d="M0 30 C20 14 50 6 75 6 C100 6 130 14 150 30 Z" fill="#fbf8f1" stroke="#2a221c" stroke-width="1.3" vector-effect="non-scaling-stroke"/><path d="M40 20 h10 M92 16 h12" stroke="#2a221c" stroke-width="1" opacity=".4" vector-effect="non-scaling-stroke"/></svg>
-  </div>`}).join("");
-
-/* bridesmaids: chairs on a cable */
-$("#chairCable").insertAdjacentHTML("beforeend",CREW.bridesmaids.map((c,i)=>`<div class="car"><div class="car-in">
-  <div class="face cface" data-i="${i}" role="button" tabindex="0" aria-label="${esc(c.role)}: ${esc(c.name)}"><div class="chair">
-    <svg viewBox="0 0 160 190" aria-hidden="true"><use href="#chairlift"/></svg>
-    <figure class="cpol"><img src="${crewImg(c)}" alt="" loading="lazy"><figcaption></figcaption></figure>
-    <div class="cbar"><svg viewBox="0 0 160 190" aria-hidden="true"><use href="#chairbar"/></svg></div>
-    <div class="ctag"><b>${esc(c.name)}</b><i>${esc(c.role)}</i></div>
-  </div></div></div></div>`).join(""));
-const chairs=new Cableway($("#chairCable"),(w,h)=>w<h*1.05
-  ?{a:[-.1,.42],b:[1.1,.06],sag:.1}
-  :{a:[-.06,.5],b:[1.06,.06],sag:.14});
-const chairStage=$(".chair-stage");
-let lastY=scrollY,vel=0;
-function rideChairs(now){
-  const r=chairStage.getBoundingClientRect();
-  if(!REDUCE&&(r.bottom<-100||r.top>innerHeight+100)) return;
-  const p=REDUCE?.5:clamp((innerHeight-r.top)/(innerHeight+r.height));
-  vel=vel*.85+(scrollY-lastY)*.15;lastY=scrollY;
-  const n=chairs.cars.length,bar=clamp(1-Math.abs(p-.5)*3.2);
-  /* wide screens: all chairs in view; phones: chairs spaced out and riding past */
-  const narrow=chairs.w<620,gap=narrow?.36:(n>1?.7/(n-1):0),travel=narrow?gap*(n-1)+.9:.7;
-  chairs.cars.forEach((c,i)=>{
-    const t=.5+(i-(n-1)/2)*gap+(p-.5)*travel;
-    const swing=REDUCE?0:clamp(-vel*.25,-9,9)+Math.sin(now/1100+i*1.9)*1.3;
-    chairs.place(c,t,{swing});
-    c.querySelector(".cbar").style.transform=`translateY(${(1-ease(bar))*-34}%)`;
-  });
+const TILT=[-2.5,1.8,-1.2,2.6,-2,1.4];
+function crewCard(c,i,key){
+  const grade=c.grade?`<span class="gd ${c.grade}">${"<i></i>".repeat(c.grade==="double"?2:1)}</span>`:"";
+  return `<button class="mp" type="button" style="--r:${TILT[i%TILT.length]}deg" data-k="${key}" data-i="${i}" aria-label="${esc((c.name?c.name+", ":"")+c.role)}. Tap to read more.">
+    <span class="mp-card"><span class="mp-photo"><img src="${crewImg(c)}" alt="" loading="lazy"></span>
+    <span class="mp-name">${esc(c.name||c.role)}</span><span class="mp-role">${grade}${c.name?esc(c.role):"&nbsp;"}</span></span></button>`;
 }
+$("#rowGroom").innerHTML=CREW.groomsmen.map((c,i)=>crewCard(c,i,"groomsmen")).join("");
+$("#rowBride").innerHTML=CREW.bridesmaids.map((c,i)=>crewCard(c,i,"bridesmaids")).join("");
+$("#rowFlower").innerHTML=CREW.flowergirls.map((c,i)=>crewCard(c,i,"flowergirls")).join("");
 
-/* flower girls: paper snowflakes */
-$("#flakes").innerHTML=CREW.flowergirls.map((c,i)=>`<div class="fl" style="--i:${i}" data-i="${i}" role="button" tabindex="0" aria-label="${esc(c.role)}: ${esc(c.name)}">
-  <div class="fl-paper"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#paperflake" width="200" height="200"/></svg><img src="${crewImg(c)}" alt="" loading="lazy"></div>
-  <b>${esc(c.name)}</b><i>${esc(c.role)}</i></div>`).join("");
+/* photos develop as they come into view, a beat apart along each row */
+const devIO=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting) return;
+  const el=e.target;
+  setTimeout(()=>el.classList.add("dev"),(+el.dataset.i%6)*260);devIO.unobserve(el)}),{threshold:.45});
+document.querySelectorAll(".mp").forEach(m=>REDUCE?m.classList.add("dev"):devIO.observe(m));
 
-/* reveal once in view, and tap/enter to open */
-const crewIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");crewIO.unobserve(e.target)}}),{threshold:.25});
-["#posts","#flakes"].forEach(sel=>REDUCE?$(sel).classList.add("in"):crewIO.observe($(sel)));
-[["#posts",".post","groomsmen"],["#chairCable",".cface","bridesmaids"],["#flakes",".fl","flowergirls"]].forEach(([wrap,item,key])=>{
-  const go=e=>{const el=e.target.closest(item);if(!el)return;if(e.type==="keydown"&&e.key!=="Enter"&&e.key!==" ")return;e.preventDefault();crewOpen(el.querySelector("img")||el,CREW[key][+el.dataset.i])};
-  $(wrap).addEventListener("click",go);$(wrap).addEventListener("keydown",go);
-});
+/* tap: lift the polaroid to the middle of the screen and turn it over */
+const fdlg=$("#flipcard"),fc=fdlg.querySelector(".fc");
+function openCrew(from,c){
+  const name=c.name||c.role;
+  fc.querySelector(".fc-front img").src=crewImg(c);fc.querySelector(".fc-front img").alt=c.photo?name:"";
+  fc.querySelectorAll(".fc-name").forEach(n=>n.textContent=name);
+  fc.querySelectorAll(".fc-role").forEach(n=>n.textContent=c.name?c.role:"");
+  fc.querySelector(".fc-back p").textContent=c.fact||"A few words to come.";
+  fc.classList.remove("flipped");
+  fdlg.showModal();
+  if(REDUCE){fc.classList.add("flipped");return}
+  const r=from.getBoundingClientRect(),R=fc.getBoundingClientRect();
+  fc.animate([{transform:`translate(${r.left+r.width/2-R.left-R.width/2}px,${r.top+r.height/2-R.top-R.height/2}px) scale(${r.width/R.width}) rotate(${getComputedStyle(from).rotate==="none"?0:getComputedStyle(from).rotate})`},{transform:"none"}],
+    {duration:460,easing:"cubic-bezier(.2,.85,.25,1)"});
+  setTimeout(()=>fc.classList.add("flipped"),420);
+}
+$("#crew").addEventListener("click",e=>{const m=e.target.closest(".mp");if(m) openCrew(m,CREW[m.dataset.k][+m.dataset.i])});
+const turn=e=>{if(e.type==="keydown"&&e.key!=="Enter"&&e.key!==" ")return;e.preventDefault();fc.classList.toggle("flipped")};
+fc.querySelector(".fc-in").addEventListener("click",turn);fc.querySelector(".fc-in").addEventListener("keydown",turn);
+fdlg.addEventListener("click",e=>{if(e.target===fdlg)fdlg.close()});
 
 /* ---------- page bits ---------- */
 function init(){
