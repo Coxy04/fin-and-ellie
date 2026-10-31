@@ -27,23 +27,19 @@ About 20 minutes end to end. You need free accounts on Supabase, GitHub and Verc
 
 ## 3. Load the guest list
 
-Quickest: paste `guests.seed.local.sql` into Supabase › SQL Editor and run it. It's kept out of git.
+The guest list lives in an Excel file. Start from `supabase/guests-template.xlsx` (or the `guests.xlsx` already in this folder, which is git-ignored).
 
-Or import a CSV:
-
-1. Copy `supabase/guests.example.csv` to `guests.csv` in this folder. It is git-ignored.
-2. Fill it in from the wedding spreadsheet. One row per person.
-   - **household**: groups people who RSVP together, e.g. "The Smith family". Use the exact same text for everyone in it.
-   - **full_name**: what guests will type to find themselves. Use the name they'd recognise.
-   - **invite_type**: `day` or `evening`.
-   - **is_child**: `yes` or `no`.
-3. Check it, then import it:
+1. One row per person:
+   - **Full name**: what they'll type on the site to find themselves.
+   - **Family / partner**: who they reply with. Either give a family the same word (e.g. `Smiths`), or type a partner's name (only one of the pair needs it). Blank = replies on their own.
+   - **Invite**: `day` or `evening` (blank = day). **Child**: `yes` or `no` (blank = no).
+2. Import it (needs `.env.local` from step 2):
    ```
-   npm run import-guests -- guests.csv --dry-run
-   npm run import-guests -- guests.csv
+   npm run import-guests -- guests.xlsx --dry-run
+   npm run import-guests -- guests.xlsx
    ```
-4. Re-running is safe. People already in the database are skipped, so add late guests to the CSV and run it again.
-   - Renames and deletions are done in Supabase › Table Editor › `guests`.
+3. Re-running is safe. New people are added, and anyone already in the database is moved into their family group if it changed. Their RSVP moves with them. Nobody is deleted.
+4. On the site, when one person finds their name they see everyone linked to them and choose "reply for all of us" or "just for me".
 
 ## 4. GitHub: put the code online
 

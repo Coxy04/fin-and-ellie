@@ -14,7 +14,8 @@
 - `api/` — `login`, `find` (name search), `rsvp` (save), `keepalive` (daily cron), `admin` + `admin-login` (dashboard).
 - `lib/` — shared password-cookie and Supabase helpers.
 - `supabase/schema.sql` — tables, the two database functions, and the admin views.
-- `scripts/import-guests.mjs` — loads the guest list from a CSV.
+- `scripts/import-guests.mjs` — loads the guest list from Excel (.xlsx) or CSV, grouping families and partners.
+- `supabase/guests-template.xlsx` — the guest list template (Full name, Family / partner, Invite, Child).
 - `DEPLOY.md` — step-by-step setup for Supabase and Vercel.
 - `wedding-site.html` — the original multi-tab mockup, kept for reference. Safe to delete.
 

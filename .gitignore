@@ -8,8 +8,10 @@ node_modules/
 
 # guest data: only the template is committed
 *.csv
+*.xlsx
 *.local.sql
 !supabase/guests.example.csv
+!supabase/guests-template.xlsx
 
 # personal reference photos, not part of the site
 # (site images live in public/img and are always committed)

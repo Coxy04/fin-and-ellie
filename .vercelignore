@@ -10,3 +10,4 @@ supabase/
 scripts/
 .env*
 *.local.sql
+*.xlsx

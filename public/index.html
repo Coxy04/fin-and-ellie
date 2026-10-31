@@ -395,6 +395,11 @@ section{padding:88px 0}
 }
 .faq details[open] summary::after{transform:rotate(90deg)}
 .faq details p{padding:0 0 22px;color:var(--ink-soft);font-size:19px;max-width:620px}
+/* Poppy's photo under her FAQ answer */
+.faq-pol{position:relative;width:min(220px,60vw);margin:12px 0 30px 6px;background:#fffdf8;padding:12px 12px 0;box-shadow:0 10px 22px rgba(42,34,28,.16),0 1px 2px rgba(42,34,28,.2);rotate:-2.5deg}
+.faq-pol::before{content:"";position:absolute;left:50%;top:-17px;width:11px;height:35px;margin-left:-5.5px;background:var(--peg) center/contain no-repeat;filter:drop-shadow(0 1.5px 1px rgba(42,34,28,.35))}
+.faq-pol img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover}
+.faq-pol figcaption{font-family:var(--script);font-size:30px;text-align:center;padding:8px 0 10px}
 
 /* ------------------------------------------------------------
    Footer
@@ -448,6 +453,11 @@ dialog::backdrop{background:rgba(42,34,28,.55);-webkit-backdrop-filter:blur(2px)
 .mfoot{margin-top:22px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
 .mfoot .back{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;background:none;border:0;cursor:pointer;color:var(--ink-faint);padding:12px 0}
 .mfoot .back:hover{color:var(--ink)}
+.party{list-style:none;margin:0;padding:0;border:var(--line);border-radius:6px;background:var(--paper)}
+.party li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border-top:1px dashed var(--ink-faint);font-size:19px}
+.party li:first-child{border-top:0}
+.who-btns{display:grid;gap:10px;margin-top:12px}
+.addall{display:block;margin-top:16px;color:var(--brown) !important;font-weight:600}
 .err{font-family:var(--sans);font-size:12px;letter-spacing:.1em;color:var(--red);min-height:18px;margin-top:6px}
 .btn:disabled{opacity:.6;cursor:wait;transform:none}
 
@@ -528,7 +538,7 @@ dialog::backdrop{background:rgba(42,34,28,.55);-webkit-backdrop-filter:blur(2px)
 .gd.green i,.gd.red i{border-radius:50%}.gd.green i{background:var(--green)}.gd.red i{background:var(--red)}
 .gd.blue i{background:var(--blue)}.gd.black i,.gd.double i{background:var(--black);transform:rotate(45deg) scale(.8)}
 @media(max-width:900px){.crew-row::before{display:none}}
-@media(max-width:560px){.crew-row,.crew-row.sm{--w:calc(50vw - 40px);gap:30px 22px}}
+@media(max-width:560px){.crew-row,.crew-row.sm,.crew-row.six{--w:calc(50vw - 40px);gap:30px 22px}}
 
 /* the turned-over card */
 .flip-dlg{border:0;padding:24px 16px;background:transparent;overflow:auto;max-width:none;max-height:100svh;width:fit-content;height:fit-content;box-shadow:none;border-radius:0;scrollbar-width:none}
@@ -552,7 +562,7 @@ dialog::backdrop{background:rgba(42,34,28,.55);-webkit-backdrop-filter:blur(2px)
 /* phones: lift the smallest labels to a readable size */
 @media(max-width:560px){
   .t-top,.t-unit i,.t-foot,.t-vert{font-size:10px}
-  .mp-role{font-size:10px}
+  .mp-role{font-size:10px;letter-spacing:.1em;white-space:nowrap}
   .sk .sk-note,.env-card .go{font-size:11px}
   .key{font-size:11px}
   .barno,.fc-turn{font-size:10px}
@@ -902,7 +912,6 @@ dialog::backdrop{background:rgba(42,34,28,.55);-webkit-backdrop-filter:blur(2px)
           <div class="caps">You are invited to the wedding of</div>
           <div class="bnames">Fin &amp; Ellie</div>
           <svg class="bridge" viewBox="0 0 120 26" preserveAspectRatio="none"><use href="#ridge"/></svg>
-          <div class="caps" style="letter-spacing:.28em">Are getting married</div>
           <svg class="bheart"><use href="#heart"/></svg>
           <ul class="blist">
             <li><svg><use href="#i-cal"/></svg><div><b>31.05.2027</b><span>Monday, bank holiday</span></div></li>
@@ -1053,7 +1062,7 @@ dialog::backdrop{background:rgba(42,34,28,.55);-webkit-backdrop-filter:blur(2px)
       <details><summary>What about dietary requirements?</summary><p>Tell us when you RSVP and we'll pass everything to the caterers.</p></details>
       <details><summary>Can I request a song?</summary><p>Yes, that's part of the RSVP. One song each that gets you on the dance floor. We can't promise the DJ will play all of them.</p></details>
       <details><summary>Is there parking?</summary><p>Yes, free and on site. You can leave your car overnight, but please collect it by 10am the next morning.</p></details>
-      <details><summary>Will Poppy be there?</summary><p>Due to the money spent on make-up, Poppy will not be licking anyone today, but she will be here in decorative form.</p></details>
+      <details><summary>Will Poppy be there?</summary><p>Due to the money spent on make-up, Poppy will not be licking anyone today, but she will be here in decorative form.</p><figure class="faq-pol"><img src="img/faq-poppy.jpg" alt="Poppy the pug wrapped in a blanket" loading="lazy" width="700" height="700"><figcaption>Poppy</figcaption></figure></details>
       <details><summary>Can I take photos?</summary><p>Please do, but we'd love the ceremony itself to be phone-free. We have a photographer for that bit and we'd rather see your faces than your screens.</p></details>
       <details><summary>When do I need to reply by?</summary><p>1 March 2027. You can change your answer any time before then by coming back to this page.</p></details>
     </div>
@@ -1441,17 +1450,17 @@ const CREW={
     {name:"Nathan",role:"Groomsman",grade:"black",photo:"crew-nathan.jpg",fact:"As designer of the website, I need to say some nice things… Eldest brother of the bride and soon-to-be eldest brother-in-law. There aren't many holidays we go on that don't involve Nath, whether it's the four Glastonbury Festivals we've shared, many ski trips or even Norway. Another good brother to adopt, always one for having the best time, pushing us to face our fear of public transport, trying as many local beers and foods as possible, and holding the spot of second-best skier to El. Again, the sole downside… Leeds supporter."},
   ],
   bridesmaids:[
-    {name:"",role:"Bridesmaid",photo:"crew-bridesmaid-1.jpg",fact:""},
-    {name:"",role:"Bridesmaid",photo:"crew-bridesmaid-2.jpg",fact:""},
-    {name:"",role:"Bridesmaid",photo:"crew-bridesmaid-3.jpg",fact:""},
-    {name:"",role:"Bridesmaid",photo:"crew-bridesmaid-4.jpg",fact:""},
-    {name:"",role:"Bridesmaid",photo:"crew-bridesmaid-5.jpg",fact:""},
-    {name:"",role:"Bridesmaid",photo:"crew-bridesmaid-6.jpg",fact:""},
+    {name:"G",role:"Maid of honour",photo:"crew-bridesmaid-1.jpg",fact:"AKA Mumma G. She emotionally looked after me whilst I academically looked after her. She has one of the biggest hearts and is a wonder on the netball court. Always there to hype you up. Catch her on a night out and the skank face will be out. Need a plan organising? She's your gal."},
+    {name:"Mil",role:"Maid of honour",photo:"crew-bridesmaid-2.jpg",fact:"AKA Silly Millie. My first friend at uni (despite thinking I was weird). We have shared many, many, many nights out, and you can always count on her to be the last one out. Ski and general holiday buddy, and also a wonder on the netball court. Need egging on for a new tattoo? She's your gal."},
+    {name:"Mads",role:"Bridesmaid",photo:"crew-bridesmaid-3.jpg",fact:"My sister from Wales. She has dance moves like no other, and you can always count on her to bring the vibes. Just generally one of the loveliest humans you will ever meet. Steadiest skier, great holiday buddy, and gives the best hugs. Want to stay out all night? She's your gal."},
+    {name:"Kat",role:"Bridesmaid",photo:"crew-bridesmaid-4.jpg",fact:"My sister from over the road, my middle-of-the-day FaceTime buddy, and Poppy's second mum. You can count on Kat to have flawless make-up (despite it taking many hours) and a wonderful knowledge for quizzing. Need your nails doing? She's your gal."},
+    {name:"Jen",role:"Bridesmaid",photo:"crew-bridesmaid-5.jpg",fact:"AKA Big Bad Jenny. Small but mighty, and also has one of the biggest hearts ever. She's not afraid to get her hands dirty on the netball court, or on the farm pulling out calves and lambs. She's a speedy queen on the court, running and on her skis. Need help with your farm animals? She's your gal."},
+    {name:"Kimmy",role:"Bridesmaid",photo:"crew-bridesmaid-6.jpg",fact:"My big cousin, but basically always a big sis. She's always been very honest with me about my fashion choices, which is fair, as she is a fashion queen. A force to be reckoned with, and who I've learnt some of my best traits from. She took me to see my first true loves (Harry Styles and Justin Bieber), always made out like she didn't want to go, but would scream louder than me. Need a shopping trip? She's your gal."},
   ],
   flowergirls:[
-    {name:"Arlowe",role:"Flower girl",photo:"crew-arlowe.jpg",fact:""},
-    {name:"Delilah",role:"Flower girl",photo:"crew-delilah.jpg",fact:""},
-    {name:"Riley",role:"Flower girl",photo:"crew-riley.jpg",fact:""},
+    {name:"Arlowe",role:"Flower girl",photo:"crew-arlowe.jpg",fact:"Another one of my beautiful little nieces, who will always be known as Baby Arlowe. A dancing icon with a touch of pure craziness. Gives the best hugs and can put a smile on anyone's face. A pure love of crisps and anything with chocolate in it. Want to find a snack buddy? She's your gal."},
+    {name:"Delilah",role:"Flower girl",photo:"crew-delilah.jpg",fact:"My gorgeous niece who made me an auntie, my little Lilee-Loo. She has the most infectious smile and is one of the most conscientious little girls I know. She has such a big heart and a joyful personality. Want a game on Roblox? She's your gal."},
+    {name:"Riley",role:"Flower girl",photo:"crew-riley.jpg",fact:"Little Riley Bottom, also known as Smiley Riley. The smiliest, most confident little bundle of joy ever! With an added touch of sassiness: despite being small, she's a girl who knows her own mind. She's probably off playing with Arlowe somewhere. Need an infectious smile? She's your gal."},
   ],
 };
 const crewImg=c=>c.photo?"img/"+c.photo:"img/crew-placeholder.svg";
@@ -1559,14 +1568,25 @@ async function search(v){
     results=hits;
     hint.textContent=hits.length?"":"We can’t find that name. Try your surname, or how it’s written on the invitation.";
     f.style.display=hits.length?"block":"none";
-    f.innerHTML=hits.map(h=>`<button onclick="pick(${h.id})">${esc(h.name)}<small>${h.guests.map(g=>esc(g.name.split(" ")[0])).join(" · ")}</small></button>`).join("");
+    const lv=v.toLowerCase();
+    f.innerHTML=hits.flatMap(h=>{
+      const mine=h.guests.filter(g=>g.name.toLowerCase().includes(lv));
+      return (mine.length?mine:h.guests.slice(0,1)).map(g=>{
+        const others=h.guests.filter(o=>o.id!==g.id).map(o=>esc(first(o.name)));
+        return `<button onclick="pick(${h.id},${g.id})">${esc(g.name)}<small>${others.length?"Invited with "+others.join(", ").replace(/, ([^,]*)$/," & $1"):"Just you"}</small></button>`;
+      });
+    }).join("");
   }catch(e){
     if(seq===searchSeq){hint.textContent=e.message;f.style.display="none"}
   }
 }
 
-function pick(id){
+const first=n=>String(n).trim().split(/\s+/)[0];
+let me=null,party=[];
+const P=()=>hh.guests.filter(g=>party.includes(g.id));   // the people this reply is for
+function pick(id,gid){
   hh=results.find(h=>h.id===id);
+  me=hh.guests.find(g=>g.id===gid)||hh.guests[0];
   answers={message:hh.message||"",guests:{}};
   hh.guests.forEach(g=>{
     const r=g.rsvp||{};
@@ -1578,15 +1598,31 @@ function pick(id){
       songArtist:r.song_artist||""
     };
   });
-  stepForm();
+  if(hh.guests.length>1) stepWho();
+  else{party=[me.id];stepForm()}
 }
 
+/* family / partner: offer to reply for everyone on the invitation */
+function stepWho(){
+  const others=hh.guests.filter(g=>g.id!==me.id);
+  $("#mbody").innerHTML=`
+    <p class="lead">Hi ${esc(first(me.name))}! Your invitation also includes:</p>
+    <ul class="party">${others.map(g=>`<li><span>${esc(g.name)}</span><span class="tag">${g.rsvp?"Already replied":g.type==="evening"?"Evening pass":"All-day pass"}</span></li>`).join("")}</ul>
+    <p class="lead" style="margin-top:18px">Would you like to reply for everyone?</p>
+    <div class="who-btns">
+      <button class="btn solid" onclick="choose(true)">Yes, reply for ${hh.guests.length===2?"both":"all "+hh.guests.length} of us</button>
+      <button class="btn" onclick="choose(false)">Just for me</button>
+    </div>
+    <div class="mfoot"><button class="back" onclick="stepFind()">Not you? Search again</button></div>`;
+}
+function choose(all){party=all?hh.guests.map(g=>g.id):[me.id];stepForm();$("#mbody").scrollTop=0}
+
 function stepForm(){
-  const multi=hh.guests.length>1;
-  const replied=hh.guests.some(g=>g.rsvp);
+  const multi=P().length>1;
+  const replied=P().some(g=>g.rsvp);
   let h=`<p class="lead">${replied?"You’ve already replied. Change anything below and send it again.":multi?"Reply for each of you below.":"Let us know if you can make it."}</p>`;
   if(multi) h+=`<div class="seg" style="margin-top:0"><button onclick="setAll(true)">All of us are coming</button><button onclick="setAll(false)">None of us can</button></div>`;
-  hh.guests.forEach(g=>{
+  P().forEach(g=>{
     const s=answers.guests[g.id];
     h+=`<div class="guest">
       <div class="gname"><b>${esc(g.name)}</b><span class="tag">${g.type==="evening"?"Evening pass":"All-day pass"}</span></div>
@@ -1618,15 +1654,19 @@ function stepForm(){
       <textarea maxlength="2000" placeholder="…" oninput="answers.message=this.value">${esc(answers.message)}</textarea></div>
     <div class="mfoot"><button class="btn solid" id="send" onclick="submitRSVP()">Send RSVP</button><button class="back" onclick="stepFind()">Not you? Search again</button></div>
     <div class="err" id="ferr"></div>`;
+  if(party.length<hh.guests.length){
+    const rest=hh.guests.filter(g=>!party.includes(g.id)).map(g=>esc(first(g.name))).join(", ").replace(/, ([^,]*)$/," & $1");
+    h=h.replace('<div class="field" style="margin-top:22px">',`<button class="back addall" onclick="choose(true)">+ Reply for ${rest} too</button><div class="field" style="margin-top:22px">`);
+  }
   $("#mbody").innerHTML=h;
 }
 /* re-render but keep the scroll position, so tapping a button doesn't jump to the top */
 function rerender(){const b=$("#mbody"),y=b.scrollTop;stepForm();b.scrollTop=y}
 function setA(id,v){answers.guests[id].attending=v;rerender()}
-function setAll(v){hh.guests.forEach(g=>answers.guests[g.id].attending=v);rerender()}
+function setAll(v){P().forEach(g=>answers.guests[g.id].attending=v);rerender()}
 
 async function submitRSVP(){
-  const missing=hh.guests.filter(g=>answers.guests[g.id].attending===null);
+  const missing=P().filter(g=>answers.guests[g.id].attending===null);
   if(missing.length){$("#ferr").textContent="Please answer for "+missing.map(g=>g.name.split(" ")[0]).join(", ");return}
   const btn=$("#send");
   btn.disabled=true;btn.textContent="Sending…";$("#ferr").textContent="";
@@ -1634,7 +1674,7 @@ async function submitRSVP(){
     await api.save({
       household_id:hh.id,
       message:answers.message,
-      guests:hh.guests.map(g=>{const s=answers.guests[g.id];return{
+      guests:P().map(g=>{const s=answers.guests[g.id];return{
         id:g.id,attending:s.attending,
         diet:s.attending?s.diet:"",diet_notes:s.attending?s.dietNotes:"",
         song_title:s.attending?s.songTitle:"",song_artist:s.attending?s.songArtist:""
@@ -1647,8 +1687,8 @@ async function submitRSVP(){
 }
 
 function stepDone(){
-  const coming=hh.guests.filter(g=>answers.guests[g.id].attending);
-  lastPass={id:hh.id,name:hh.name,guests:hh.guests.map(g=>({name:g.name,type:g.type,attending:!!answers.guests[g.id].attending}))};
+  const coming=P().filter(g=>answers.guests[g.id].attending);
+  lastPass={id:hh.id,name:hh.name,guests:P().map(g=>({name:g.name,type:g.type,attending:!!answers.guests[g.id].attending}))};
   /* the card in the envelope becomes their lift pass */
   $("#envTitle").textContent=coming.length?"See you on the slopes":"Thanks for letting us know";
   $("#envSub").textContent="Your reply is in";
@@ -1658,7 +1698,7 @@ function stepDone(){
       <div class="liftpass">
         <div class="eyebrow">We'll miss you</div>
         <div class="script">Thank you for letting us know</div>
-        <ul>${hh.guests.map(g=>`<li><span>${esc(g.name)}</span><span>Not attending</span></li>`).join("")}</ul>
+        <ul>${P().map(g=>`<li><span>${esc(g.name)}</span><span>Not attending</span></li>`).join("")}</ul>
         <img class="pug" src="img/pug.webp" alt="">
         <p class="small" style="margin:14px 0 0">If plans change, come back and update this any time before 1 March 2027.</p>
       </div>
@@ -1670,7 +1710,7 @@ function stepDone(){
     <div class="liftpass">
       <div class="eyebrow">Lift pass issued · 31.05.2027</div>
       <div class="script">See you on the slopes</div>
-      <ul>${hh.guests.map(g=>`<li><span>${esc(g.name)}</span><span>${passType(g.type,answers.guests[g.id].attending)}</span></li>`).join("")}</ul>
+      <ul>${P().map(g=>`<li><span>${esc(g.name)}</span><span>${passType(g.type,answers.guests[g.id].attending)}</span></li>`).join("")}</ul>
       <div class="barcode" aria-hidden="true">${barcodeWidths(hh.id+hh.name).map((w,i)=>`<i style="width:${w*2}px;${i%2?'background:none':''}"></i>`).join("")}</div>
       <div class="barno">FE-0531-${String(hh.id).padStart(4,"0")}</div>
       ${songs.length?`<div class="crate"><div class="label">In the DJ's crate</div><div class="records">${songs.map(g=>{const a=answers.guests[g.id];
