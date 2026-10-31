@@ -1,6 +1,8 @@
 // Import the guest list into Supabase from Excel (.xlsx) or CSV.
 //   npm run import-guests -- guests.xlsx            (writes)
 //   npm run import-guests -- guests.xlsx --dry-run  (just shows what it would do)
+//   node scripts/import-guests.mjs guests.xlsx --sql > guests.import.local.sql
+//      (no keys needed: writes SQL to paste into Supabase > SQL Editor instead)
 //
 // Columns (first row = headings, any order, not case-sensitive):
 //   Full name          required
@@ -24,6 +26,7 @@ import { inflateRawSync } from 'node:zlib';
 
 const [file, flag] = process.argv.slice(2);
 const dryRun = flag === '--dry-run';
+const sqlMode = flag === '--sql';
 if (!file) {
   console.error('Usage: npm run import-guests -- guests.xlsx [--dry-run]');
   process.exit(1);
@@ -31,12 +34,12 @@ if (!file) {
 
 const URL_ = process.env.SUPABASE_URL?.replace(/\/+$/, '');
 const KEY = process.env.SUPABASE_SECRET_KEY;
-if (!URL_ || !KEY) {
+if (!sqlMode && (!URL_ || !KEY)) {
   console.error('Set SUPABASE_URL and SUPABASE_SECRET_KEY in .env.local first.');
   process.exit(1);
 }
 const headers = { 'Content-Type': 'application/json', apikey: KEY, Prefer: 'return=representation' };
-if (!KEY.startsWith('sb_')) headers.Authorization = `Bearer ${KEY}`;
+if (KEY && !KEY.startsWith('sb_')) headers.Authorization = `Bearer ${KEY}`;
 
 async function api(path, init = {}) {
   const res = await fetch(`${URL_}/rest/v1/${path}`, { ...init, headers });
@@ -189,6 +192,52 @@ function householdName(members) {
     return names.length === 2 ? `${firsts[0]} & ${firsts[1]} ${sur}` : `The ${sur} family`;
   }
   return names.length === 2 ? `${names[0]} & ${names[1]}` : `${firsts.slice(0, -1).join(', ')} & ${firsts.at(-1)}`;
+}
+
+// ---------------------------------------------------------------- --sql: same result, as one SQL script
+if (sqlMode) {
+  const data = [...groups.values()].map((m) => ({
+    household: householdName(m),
+    people: m.map(({ full_name, invite_type, is_child }) => ({ full_name, invite_type, is_child })),
+  }));
+  const json = JSON.stringify(data, null, 1);
+  if (json.includes('$guests$')) throw new Error('A name contains "$guests$"');
+  console.log(`-- Guest list import, generated from ${file.split(/[\/]/).pop()} on ${new Date().toISOString().slice(0, 10)}
+-- Paste into Supabase > SQL Editor > Run. Safe to run more than once.
+-- - Adds new people, moves existing people (matched by name) into their family group,
+--   updates invite/child, and removes households left empty. RSVPs stay with each person.
+-- - Never deletes guests. People in the database but not in the sheet are left alone.
+do $$
+declare grp jsonb; p jsonb; hid bigint; gid bigint;
+begin
+  for grp in select * from jsonb_array_elements($guests$${json}$guests$::jsonb) loop
+    -- reuse the household most of this group is already in
+    select g.household_id into hid from public.guests g
+     where lower(g.full_name) in (select lower(x->>'full_name') from jsonb_array_elements(grp->'people') x)
+     group by g.household_id order by count(*) desc, g.household_id limit 1;
+    if hid is null then
+      insert into public.households(name) values (grp->>'household') returning id into hid;
+    else
+      update public.households set name = grp->>'household' where id = hid;
+    end if;
+    for p in select * from jsonb_array_elements(grp->'people') loop
+      select id into gid from public.guests where lower(full_name) = lower(p->>'full_name') limit 1;
+      if gid is null then
+        insert into public.guests(household_id, full_name, invite_type, is_child)
+        values (hid, p->>'full_name', p->>'invite_type', (p->>'is_child')::boolean);
+      else
+        update public.guests set household_id = hid, invite_type = p->>'invite_type', is_child = (p->>'is_child')::boolean where id = gid;
+      end if;
+    end loop;
+  end loop;
+  delete from public.households h where not exists (select 1 from public.guests g where g.household_id = h.id);
+end $$;
+
+-- what it looks like now
+select h.name as household, string_agg(g.full_name, ', ' order by g.id) as people, count(*) as guests
+from public.guests g join public.households h on h.id = g.household_id
+group by h.id, h.name order by h.name;`);
+  process.exit(0);
 }
 
 // ---------------------------------------------------------------- sync

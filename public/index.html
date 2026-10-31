@@ -1583,7 +1583,7 @@ async function search(v){
 
 const first=n=>String(n).trim().split(/\s+/)[0];
 let me=null,party=[];
-const P=()=>hh.guests.filter(g=>party.includes(g.id));   // the people this reply is for
+const P=()=>hh.guests.filter(g=>party.includes(g.id)).sort((a,b)=>(b.id===me?.id)-(a.id===me?.id));   // the people this reply is for, whoever searched first
 function pick(id,gid){
   hh=results.find(h=>h.id===id);
   me=hh.guests.find(g=>g.id===gid)||hh.guests[0];
