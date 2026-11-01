@@ -48,7 +48,7 @@ revoke all on public.households, public.guests, public.rsvps from anon, authenti
 
 -- ---------- find_household ----------
 -- - Case-insensitive substring match on any guest's full name.
--- - Needs 3+ characters, returns at most 5 households.
+-- - Needs 3+ characters, returns at most 10 households (a surname like Cox covers several).
 -- - Includes any saved answers so guests can edit their RSVP.
 create or replace function public.find_household(search text)
 returns jsonb
@@ -61,7 +61,7 @@ as $$
     from guests g, q
     where length(q.s) >= 3
       and position(q.s in lower(g.full_name)) > 0
-    limit 5
+    limit 10
   )
   select coalesce(jsonb_agg(
     jsonb_build_object(

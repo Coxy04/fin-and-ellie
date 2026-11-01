@@ -138,7 +138,9 @@ const problems = [];
 const byName = new Map();
 rows.forEach((r, n) => {
   const line = n + 2;
-  const full_name = String(r[iN] ?? '').trim().replace(/\s+/g, ' ');
+  // tidy spacing, and capitalise any all-lowercase word ("brian lambert" -> "Brian Lambert")
+  const full_name = String(r[iN] ?? '').trim().replace(/\s+/g, ' ')
+    .split(' ').map((w) => (w === w.toLowerCase() ? w.charAt(0).toUpperCase() + w.slice(1) : w)).join(' ');
   if (!full_name) return problems.push(`row ${line}: Full name is empty`);
   let type = String(iT >= 0 ? r[iT] ?? '' : '').trim().toLowerCase();
   type = !type || /day|all/.test(type) ? 'day' : /even/.test(type) ? 'evening' : type;
