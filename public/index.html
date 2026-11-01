@@ -207,9 +207,10 @@ section{padding:88px 0}
    - closed: bobs gently, tilts towards the mouse
    - click: seal pops, flap opens, the card slides out, then the form opens
 ------------------------------------------------------------ */
-.ride-env{position:absolute;left:50%;bottom:4%;width:min(430px,82vw);z-index:30;--q:0;
-  transform:translate(-50%,calc((1 - var(--q))*140%));opacity:var(--q);pointer-events:none}
-.ride-env.live{pointer-events:auto}
+#rsvp{padding-top:70px}
+#rsvp .shead{margin-bottom:30px}
+.env-wrap{max-width:430px;margin:0 auto;position:relative;z-index:2}
+.env-tip{text-align:center;font-size:15px;font-style:italic;color:var(--ink-faint);margin:22px 0 0}
 /* pulsing ring on the seal says "press me" */
 .env:not(.open) .seal::after{content:"";position:absolute;inset:-7px;border-radius:50%;border:1.5px solid var(--brown);animation:ring 2.2s ease-out infinite}
 @keyframes ring{from{transform:scale(.85);opacity:.8}to{transform:scale(1.45);opacity:0}}
@@ -310,12 +311,12 @@ section{padding:88px 0}
 /* ------------------------------------------------------------
    The ride up: cable cars turn into polaroids as you scroll
 ------------------------------------------------------------ */
-#story{padding:0;height:440vh;position:relative}
+#story{padding:0;height:360vh;position:relative}
 .ride-pin{position:sticky;top:var(--nav);height:calc(100svh - var(--nav));overflow:hidden;display:flex;flex-direction:column}
 .ride-pin .shead{margin:0;padding-top:clamp(20px,4vh,44px)}
 .tri{display:grid}
 .tri span{grid-area:1/1;opacity:0;transition:opacity .3s ease-in}
-[data-s="1"] .tri span:nth-child(1),[data-s="2"] .tri span:nth-child(2),[data-s="3"] .tri span:nth-child(3){opacity:1;transition:opacity .45s ease-out .32s}
+[data-s="1"] .tri span:nth-child(1),[data-s="2"] .tri span:nth-child(2){opacity:1;transition:opacity .45s ease-out .32s}
 #rideCable{transform-origin:50% 0}
 .ride-stage{position:relative;flex:1}
 .ride-stage .cableway{inset:0;--gw:clamp(48px,6vw,78px)}
@@ -331,7 +332,7 @@ section{padding:88px 0}
 .ride-hint{position:absolute;left:0;right:0;bottom:3%;text-align:center;transition:opacity .4s}
 .ride-hint svg{width:18px;height:28px;margin:6px auto 0;color:var(--ink-faint);animation:nudge 1.6s ease-in-out infinite}
 @keyframes nudge{50%{transform:translateY(5px)}}
-@media(max-width:720px){#story{height:400vh}.pface{--pw:clamp(92px,27vw,118px)}}
+@media(max-width:720px){#story{height:330vh}.pface{--pw:clamp(92px,27vw,118px)}}
 
 /* ------------------------------------------------------------
    Travel
@@ -835,8 +836,8 @@ dialog::backdrop{background:rgba(42,34,28,.55);-webkit-backdrop-filter:blur(2px)
 <section id="story">
   <div class="ride-pin" data-s="1">
     <div class="shead">
-      <div class="eyebrow tri"><span>How we got here</span><span>How we got here</span><span>Reply by 1 March 2027</span></div>
-      <h2 class="script tri"><span>The ride up</span><span>The adventure continues…</span><span>Your lift pass</span></h2>
+      <div class="eyebrow">How we got here</div>
+      <h2 class="script tri"><span>The ride up</span><span>The adventure continues…</span></h2>
     </div>
     <div class="ride-stage">
       <div class="ride-ground" aria-hidden="true"><svg viewBox="0 0 2800 260" preserveAspectRatio="xMidYMax slice" style="height:min(max(110px,9.3vw),26vh)" filter="url(#ink)"><use href="#range-wide"/></svg></div>
@@ -848,7 +849,16 @@ dialog::backdrop{background:rgba(42,34,28,.55);-webkit-backdrop-filter:blur(2px)
         <div class="car"><div class="car-in"><div class="face gface" aria-hidden="true"><svg viewBox="0 0 60 92"><use href="#gondola"/></svg></div><figure class="face pface" data-story="After a long ten-year wait for Ellie, the proposal finally came. Maybe the only time Ellie has been speechless in her life."><img src="img/photo-4.jpg" alt="Fin and Ellie just engaged, Ellie showing off the ring"><figcaption>The proposal</figcaption></figure></div></div>
         <div class="car"><div class="car-in"><div class="face gface" aria-hidden="true"><svg viewBox="0 0 60 92"><use href="#gondola"/></svg></div><figure class="face pface" data-story="Next stop: 31.05.2027. Fin &amp; Ellie are getting married!!!!"><img src="img/photo-5.jpg" alt="Fin and Ellie together at a festival"><figcaption>Next stop: 31.05.2027</figcaption></figure></div></div>
       </div>
-      <div class="ride-env" id="rideEnv">
+      <div class="ride-hint" id="rideHint"><span class="label">Keep scrolling</span><svg viewBox="0 0 18 28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M9 2 V24 M3 18 l6 6 6 -6"/></svg></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ RSVP: the envelope, just below the story -->
+<section id="rsvp">
+  <div class="wrap">
+    <div class="shead rv"><div class="eyebrow">Reply by 1 March 2027</div><h2 class="script">Your lift pass</h2></div>
+    <div class="env-wrap">
       <div class="env" id="env" role="button" tabindex="0" aria-label="Open the envelope to RSVP">
         <div class="env-in">
           <div class="env-back"></div>
@@ -873,9 +883,8 @@ dialog::backdrop{background:rgba(42,34,28,.55);-webkit-backdrop-filter:blur(2px)
           <div class="seal" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#paw"/></svg></div>
         </div>
       </div>
-      </div>
-      <div class="ride-hint" id="rideHint"><span class="label">Keep scrolling</span><svg viewBox="0 0 18 28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M9 2 V24 M3 18 l6 6 6 -6"/></svg></div>
     </div>
+    <p class="env-tip rv">Tap the seal to open</p>
   </div>
 </section>
 
@@ -1237,7 +1246,7 @@ const spots=()=>ride.w<ride.h*1.05?[.17,.335,.5,.665,.83]:[.13,.31,.5,.69,.87];
 
 const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
 const ease=t=>1-Math.pow(1-t,3);
-let rideP=REDUCE?1:0,pendingOpen=false;
+let rideP=REDUCE?1:0;
 
 function rideProgress(){
   const s=$("#story"),pin=s.firstElementChild;
@@ -1253,13 +1262,12 @@ function frame(now){
     hero.place(c,t,{swing:REDUCE?0:Math.sin(now/900+i*2)*1.5});
   });
 
-  /* ride: climb (0-.34), flip into polaroids (.36-.64),
-     polaroids lift away and the envelope rises in (.72-.86) */
+  /* ride: climb (0-.4), flip into polaroids (.42-.76), then hold */
   const p=REDUCE?1:rideProgress();rideP=p;
-  const climb=ease(clamp(p/.34));
+  const climb=ease(clamp(p/.4));
   ride.cars.forEach((c,i)=>{
     const t=spots()[i]-(1-climb)*1.1;
-    const f=ease(clamp((p-.36-i*.04)/.12));
+    const f=ease(clamp((p-.42-i*.05)/.14));
     const sway=REDUCE?0:Math.sin(now/1100+i*1.7)*(f?2.2:1.2);
     const tilt=f*(i%2?3.5:-3);
     ride.place(c,t,{flip:f,swing:sway+tilt});
@@ -1267,12 +1275,7 @@ function frame(now){
     c.dataset.f=f.toFixed(2);
   });
   $("#rideHint").style.opacity=p>.05?0:1;
-  const q=ease(clamp((p-.72)/.14)),portrait=ride.w<ride.h*1.05;
-  ride.el.style.transform=q?`translateY(${-q*ride.h*.03}px) scale(${1-q*(portrait?.5:.42)})`:"";
-  $("#rideEnv").style.setProperty("--q",q);
-  $("#rideEnv").classList.toggle("live",q>.9);
-  $("#story .ride-pin").dataset.s=p>.78?3:p>.6?2:1;
-  if(pendingOpen&&q>.97){pendingOpen=false;openEnvelope()}
+  $("#story .ride-pin").dataset.s=p>.72?2:1;
   skiPiste();
   if(!REDUCE) requestAnimationFrame(frame);
 }
@@ -1521,12 +1524,11 @@ function openEnvelope(){
   env.classList.add("open");
   setTimeout(openRSVP,REDUCE?0:1250);
 }
-/* nav RSVP: ride to the end of the story, then open the envelope once it's in place */
+/* nav RSVP: bring the envelope into view, then open it */
 function goRSVP(){
-  const s=$("#story"),pin=s.firstElementChild,run=s.offsetHeight-pin.offsetHeight;
-  const y=s.getBoundingClientRect().top+scrollY-parseFloat(getComputedStyle(pin).top)+run*.96;
-  if(REDUCE){scrollTo(0,y);openEnvelope();return}
-  pendingOpen=true;scrollTo({top:y,behavior:"smooth"});
+  env.scrollIntoView({behavior:REDUCE?"auto":"smooth",block:"center"});
+  const io=new IntersectionObserver(es=>{if(es[0].intersectionRatio>=.9){io.disconnect();setTimeout(openEnvelope,REDUCE?0:250)}},{threshold:[.9]});
+  io.observe(env);
 }
 env.addEventListener("click",openEnvelope);
 env.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openEnvelope()}});
@@ -1573,7 +1575,7 @@ async function search(v){
       const mine=h.guests.filter(g=>g.name.toLowerCase().includes(lv));
       return (mine.length?mine:h.guests.slice(0,1)).map(g=>{
         const others=h.guests.filter(o=>o.id!==g.id).map(o=>esc(first(o.name)));
-        return `<button onclick="pick(${h.id},${g.id})">${esc(g.name)}<small>${others.length?"Invited with "+others.join(", ").replace(/, ([^,]*)$/," & $1"):"Just you"}</small></button>`;
+        return `<button onclick="pick(${h.id},${g.id})">${esc(g.name)}${others.length?`<small>Invited with ${others.join(", ").replace(/, ([^,]*)$/," & $1")}</small>`:""}</button>`;
       });
     }).join("");
   }catch(e){
